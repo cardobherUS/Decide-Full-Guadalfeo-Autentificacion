@@ -1,0 +1,12 @@
+button{
+    color: white;
+    margin-bottom: 20px;
+    background-color: lightgreen;
+    border-radius: 100px;
+    padding: 7px;
+
+}
+a{
+    color: black;
+    text-decoration: none;
+}
