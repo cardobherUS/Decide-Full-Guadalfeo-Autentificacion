@@ -68,7 +68,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 #Login with social networks
-SITE_ID = 2
+SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -205,3 +205,5 @@ if os.path.exists("config.jsonnet"):
 
 
 INSTALLED_APPS = INSTALLED_APPS + MODULES
+
+
