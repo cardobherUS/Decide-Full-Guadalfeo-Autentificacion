@@ -1,0 +1,38 @@
+{% load socialaccount %}
+<html>
+  <head>
+    <title>DECIDE FULL GUADALFEO</title>
+  </head>
+  <body>
+    <style>
+      *{
+        margin: 0px;
+        padding: 0px;
+        font-family: sans-serif, Verdana, Geneva, Tahoma;
+      }
+    </style>
+  <div style="width: 100%; height: 80px; background-color: #CCCC; overflow-y: hidden;">
+    <ul style="width: 100%; height: 100%; position: relative; list-style-type: none; transform: translateY(25px); overflow-y: hidden;">
+      <li style="float: left;">
+        <h1>DECIDE</h1>
+      </li>
+      <li style="float: right;">
+        <div>
+          {% if user.is_authenticated %}
+          <p>Welcome, {{ user.username }} !</p>
+          {% else %}
+          <a href="{% provider_login_url 'google' %}">Login with Google</a>
+          <a href="">Login</a>
+          <a href="">Sign up</a>
+          {% endif %}
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+  
+ 
+  
+
+  </body>
+</html>
