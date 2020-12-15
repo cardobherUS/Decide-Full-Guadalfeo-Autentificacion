@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 
 from base import mods
 from base.models import Auth, Key
@@ -26,6 +27,15 @@ class QuestionOption(models.Model):
 
     def __str__(self):
         return '{} ({})'.format(self.option, self.number)
+
+class Candidatura(models.Model):
+    '''
+        Si quereis hacer uso aqui de un usuario capaz de votar, teneis que inclur la clase VotingUser de authentication:
+            from authentication.models import VotingUser
+    '''
+
+    def __str__(self):
+        return self.nombre
 
 
 class Voting(models.Model):
