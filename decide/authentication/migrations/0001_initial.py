@@ -17,16 +17,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='VotingUser',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('dni', models.CharField(max_length=9, validators=[django.core.validators.RegexValidator(message='El formato debe ser 8 digitos y una letra mayuscula.', regex='^\\d{8}[A-Z]{1}$')])),
-                ('sexo', models.CharField(choices=[('NONE', 'None'), ('HOMBRE', 'Hombre'), ('MUJER', 'Mujer'), ('OTRO', 'Otro')], default='NONE', max_length=6)),
-                ('titulo', models.CharField(max_length=100)),
-                ('curso', authentication.models.IntegerRangeField()),
-                ('candidatura', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='voting.Candidatura')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
+
     ]
