@@ -33,6 +33,7 @@ class Candidatura(models.Model):
         Si quereis hacer uso aqui de un usuario capaz de votar, teneis que inclur la clase VotingUser de authentication:
             from authentication.models import VotingUser
     '''
+    nombre = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nombre
