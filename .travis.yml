@@ -26,9 +26,6 @@ install:
   - pip install selenium
 script:
   - cd decide
-  - coverage run --branch --source=. ./manage.py test authentication --keepdb
-  - coverage xml
-  - python-codacy-coverage -r coverage.xml
 develop:
   provider: heroku
   app: https://decide-full-guadalfeo-auth.herokuapp.com/
