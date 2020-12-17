@@ -29,5 +29,7 @@ script:
 deploy:
   provider: heroku
   app: https://decide-full-guadalfeo-auth.herokuapp.com/
+  on:
+    branch: practica_DeployHeroku
   strategy: git
   apikey: $HEROKU_AUTH_TOKEN
