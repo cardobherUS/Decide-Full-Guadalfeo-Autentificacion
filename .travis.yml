@@ -28,7 +28,7 @@ script:
   - cd decide
 deploy:
   provider: heroku
-  app: https://decide-full-guadalfeo-auth.herokuapp.com/
+  app: https://decide-full-guadalfeo-auth.herokuapp.com
   strategy: git
   api_key: $HEROKU_AUTH_TOKEN
   on:
