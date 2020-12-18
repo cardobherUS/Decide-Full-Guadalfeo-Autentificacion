@@ -18,7 +18,7 @@ script:
 - coverage run --branch --source=. ./manage.py test authentication --keepdb
 deploy:
   provider: heroku
-  app: https://decide-full-guadalfeo-auth.herokuapp.com
+  app: decide-full-guadalfeo-auth
   strategy: git
   api_key: $HEROKU_AUTH_TOKEN
   on:
