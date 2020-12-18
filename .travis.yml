@@ -15,7 +15,7 @@ install:
 script:
 - cd decide
 - cp travis_local_settings.py local_settings.py
-- coverage run --branch --source=. ./manage.py test --keepdb
+- coverage run --branch --source=. ./manage.py test authentication --keepdb
 deploy:
   provider: heroku
   app: https://decide-full-guadalfeo-auth.herokuapp.com
