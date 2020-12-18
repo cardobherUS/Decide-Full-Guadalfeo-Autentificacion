@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Martel:wght@700&display=swap" rel="stylesheet">
+        <title>DECIDE FULL GUADALFEO</title>
+  </head>
+  <body>
+    <style>
+      *{
+        margin: 0px;
+        padding: 0px;
+        font-family: 'Martel', sans-serif;
+      }
+    </style>
+  <div style="width: 100%; height: 80px; background-color: #10ac84; overflow-y: hidden;">
+    <ul style="width: 100%; height: 100%; position: relative; list-style-type: none; transform: translateY(25px); overflow-y: hidden;">
+      <li style="float: left;">
+        <h1>DECIDE</h1>
+      </li>
+    </ul>
+  </div>
+  
+  <h2>Registro</h2>
+  
+  <div class="container">
+    <div class ="inputs">
+        <label for="name">Nombre:</label>
+        <br>
+        <input id="name"type="text">
+        <br>
+        <label for="surname">Apellidos:</label>
+        <br>
+        <input id="surname"type="text">
+        <br>
+        <label for="username">Usuario:</label>
+        <br>
+        <input id="username"type="text">
+        <br>
+        
+        <label for="email">E-mail:</label>
+        <br>
+        <input id="email"type="email">
+        <br>
+        <label for="password">Contraseña:</label>
+        <br>
+        <input id="password"type="password">
+    </div>
+    <div class=selector>
+        <label for="grado">Estudiantes de grado:</label>
+        <input name ="grado" type="checkbox">
+        <select multiple>
+            <option value="1soft">1º Ingeniería Software</option>
+            <option value="2soft">2º Ingeniería de Software</option>
+            <option value="3soft">3º Ingeniería de Software</option>
+            <option value="4soft">4º Ingeniería de Software</option>
+            <option value="1comp">1º Ingeniería de Computadores</option>
+            <option value="2comp">2º Ingeniería de Computadores</option>
+            <option value="3comp">3º Ingeniería de Computadores</option>
+            <option value="4comp">4º Ingeniería de Computadores</option>
+            <option value="1ti">1º Ingeniería de Tecnlogía Informática</option>
+            <option value="2ti">2º Ingeniería de Tecnlogía Informática</option>
+            <option value="3ti">3º Ingeniería de Tecnlogía Informática</option>
+            <option value="4ti">4º Ingeniería de Tecnlogía Informática</option>
+          </select>
+
+        <label for="master">Estudiantes de máster:</label>
+        <input name ="master" type="checkbox">
+    </div>
+    <p>Nota: Exclusivamente debe seleccionar en el grupo donde esté 
+        matriculado en más del 50% de las asignaturas</p>
+    <br>
+    <button>Registro</button>
+    <br>
+
+  </div> 
+
+  </body>
+</html>
