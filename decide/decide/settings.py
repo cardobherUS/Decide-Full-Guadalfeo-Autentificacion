@@ -190,10 +190,7 @@ KEYBITS = 256
 ALLOWED_VERSIONS = ['v1', 'v2']
 DEFAULT_VERSION = 'v1'
 
-INSTALLED_APPS = INSTALLED_APPS + MODULES
-
 BASEURL="https://decide-full-guadalfeo-auth.herokuapp.com"
-
 APIS = {}
 
 try:
@@ -208,6 +205,8 @@ if os.path.exists("config.jsonnet"):
     config = json.loads(evaluate_file("config.jsonnet"))
     for k, v in config.items():
         vars()[k] = v
+
+INSTALLED_APPS = INSTALLED_APPS + MODULES
 
 import django_heroku
 
