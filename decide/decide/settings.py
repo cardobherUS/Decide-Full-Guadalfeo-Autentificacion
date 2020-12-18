@@ -95,8 +95,6 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'http://localhost:8000'
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -190,6 +188,9 @@ KEYBITS = 256
 ALLOWED_VERSIONS = ['v1', 'v2']
 DEFAULT_VERSION = 'v1'
 
+BASEURL="https://decide-full-guadalfeo-auth.herokuapp.com"
+APIS = {}
+
 try:
     from local_settings import *
 except ImportError:
@@ -203,7 +204,8 @@ if os.path.exists("config.jsonnet"):
     for k, v in config.items():
         vars()[k] = v
 
-
 INSTALLED_APPS = INSTALLED_APPS + MODULES
 
+import django_heroku
 
+django_heroku.settings(locals())
