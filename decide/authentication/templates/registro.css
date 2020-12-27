@@ -1,0 +1,61 @@
+*{
+}
+
+h1{
+    margin-left: 50px;
+    font-weight: bold;
+    color: white;
+    
+}
+h2{
+    margin: 50px 50px;
+    font-size: 40px;
+    width: 20%;
+    padding:10px;
+}
+
+.container{
+    margin-left: 50px;
+    padding:10px;
+    
+}
+input{
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+button{
+    color: white;
+    margin-bottom: 20px;
+    background-color: #10ac84;
+    border-radius: 100px;
+    padding: 7px;
+
+}
+
+.columname{
+    float: left;
+}
+.columsurname{
+    float: left;
+    margin-left: 150px;
+}
+.namesurname{
+    float: left;
+    width: 100%;
+}
+
+.filausernamepass{
+    float: left;
+    width: 100%;
+    }
+.usernamecolum{
+    float: left;
+}
+.passwordcolum{
+    float: left;
+    margin-left: 150px;
+}
+
+#email{
+    padding: 0.09em 12.5em;
+}
