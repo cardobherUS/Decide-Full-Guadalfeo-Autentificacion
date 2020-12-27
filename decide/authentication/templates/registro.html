@@ -1,6 +1,6 @@
 <html>
   <head>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="registro.css">
     <link href="https://fonts.googleapis.com/css2?family=Martel:wght@700&display=swap" rel="stylesheet">
         <title>DECIDE FULL GUADALFEO</title>
   </head>
@@ -24,31 +24,47 @@
   
   <div class="container">
     <div class ="inputs">
+      <div class="namesurname">
+        <div class="columname">
         <label for="name">Nombre:</label>
         <br>
         <input id="name"type="text">
-        <br>
+        </div>
+        <div class="columsurname">
         <label for="surname">Apellidos:</label>
         <br>
         <input id="surname"type="text">
         <br>
+        </div>
+      </div>
+      <br>
+      
+      <div class="filausernamepass">
+        <div class="usernamecolum">
         <label for="username">Usuario:</label>
         <br>
         <input id="username"type="text">
         <br>
-        
-        <label for="email">E-mail:</label>
-        <br>
-        <input id="email"type="email">
-        <br>
+        </div>  
+        <div class="passwordcolum">
         <label for="password">Contraseña:</label>
         <br>
         <input id="password"type="password">
+        </div>
+      </div>
+      <div class="filaemail">
+        <label for="email">E-mail:</label>
+              <br>
+              <input id="email"type="email">
+              <br>
+      </div>
     </div>
+ 
     <div class=selector>
         <label for="grado">Estudiantes de grado:</label>
         <input name ="grado" type="checkbox">
-        <select multiple>
+        <br>
+        <select name="grado" class="grado" size="5" multiple>
             <option value="1soft">1º Ingeniería Software</option>
             <option value="2soft">2º Ingeniería de Software</option>
             <option value="3soft">3º Ingeniería de Software</option>
@@ -62,7 +78,7 @@
             <option value="3ti">3º Ingeniería de Tecnlogía Informática</option>
             <option value="4ti">4º Ingeniería de Tecnlogía Informática</option>
           </select>
-
+          <br>
         <label for="master">Estudiantes de máster:</label>
         <input name ="master" type="checkbox">
     </div>
