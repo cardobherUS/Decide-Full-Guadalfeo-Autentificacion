@@ -1,3 +1,4 @@
+from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from rest_framework.status import (
         HTTP_201_CREATED,
@@ -12,6 +13,11 @@ from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 
 from .serializers import UserSerializer
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .forms import RegisterVotingUserForm
+from .models import VotingUser
 
 
 class GetUserView(APIView):
@@ -53,3 +59,71 @@ class RegisterView(APIView):
         except IntegrityError:
             return Response({}, status=HTTP_400_BAD_REQUEST)
         return Response({'user_pk': user.pk, 'token': token.key}, HTTP_201_CREATED)
+
+
+# INDEX
+
+class IndexUserView(APIView):
+    def get(self, request):
+
+        return render(request, 'index/index.html', {})
+
+# LOGIN AND REGISTER USER #
+
+
+class LoginUserView(APIView):
+
+    def get(self, request):
+
+        login_form = AuthenticationForm()
+        return render(request, 'users/login.html', {'login_form': login_form,})
+
+    def post(self, request):
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        login_user = authenticate(request, username=username, password=password)
+
+        if login_user is not None:
+            login(request, login_user)
+            return redirect('/main/index/', login_user)
+        else:
+            return render(request, 'index/error.html', {'error': "Vekto Puto", })
+
+
+class RegisterUserView(APIView):
+
+    def get(self, request):
+
+        register_user = UserCreationForm()
+        register_voting_user = RegisterVotingUserForm()
+
+        return render(request, 'users/registro.html',
+                      {'user_form': register_user,
+                       'votinguser_form': register_voting_user,
+                       }
+                      )
+
+    def post(self, request):
+
+        user_form = UserCreationForm(request.POST)
+        votinguser_form = RegisterVotingUserForm(request.POST)
+
+        if user_form.is_valid() and votinguser_form.is_valid():
+
+            # CREATE USER FIRST
+            user = user_form.save()
+
+            voting_user = votinguser_form.save(commit=False)
+            voting_user.user = user
+            voting_user.save()
+
+            return redirect('/main/auth/login/')
+
+        else:
+            return render(request, 'users/registro.html',
+                      {'user_form': user_form,
+                       'votinguser_form': votinguser_form,
+                       }
+                      )

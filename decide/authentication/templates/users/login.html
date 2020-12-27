@@ -23,19 +23,16 @@
   <h2>Login</h2>
   
   <div class="container">
-    <div class ="inputs">
-        <label for="user">E-mail:</label>
-        <br>
-        <input id="user"type="email">
-        <br>
-        <label for="password">Contraseña:</label>
-        <br>
-        <input id="password"type="password">
-    </div>
+
+    <form id="registerForm" method="post" action="">
+        {% csrf_token %}
+
+        {{login_form.as_p}}
+
+        <input type="submit" value="Login">
+    </form>
+
     <br>
-    <div class=logs>
-    <button id="login">    Login    </button>
-    </div>
     <button id="loggo">Login con Google</button>
     <button id="loggi">Login con Github</button>
     <br>

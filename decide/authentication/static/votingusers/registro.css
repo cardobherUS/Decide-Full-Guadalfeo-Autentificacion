@@ -1,0 +1,27 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'sans-serif'
+}
+
+h2
+{
+    margin: auto;
+    text-align: center;
+}
+
+.container{
+    margin: auto 3rem;
+    display: flex
+    flex-direction: column;
+}
+
+.container form
+{
+
+}
+
+.container p
+{
+    margin: 5px;
+}

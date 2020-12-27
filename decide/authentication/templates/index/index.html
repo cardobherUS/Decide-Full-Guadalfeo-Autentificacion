@@ -20,8 +20,9 @@
       </li>
       <li style="float: right;">
         <div>
-          {% if user.is_authenticated %}
-          <p>Welcome, {{ user.username }} !</p>
+          {% if request.user.is_authenticated %}
+          <p>Welcome, {{ request.user.username }} !</p>
+           <button><a href="logout/">Logout</a></button>
           {% else %}
             <button><a href="login/">Login</a></button>
             <button><a href="{% provider_login_url 'google' %}">Login with Google</a> </button>
