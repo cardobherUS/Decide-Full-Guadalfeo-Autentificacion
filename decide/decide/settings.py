@@ -65,13 +65,13 @@ AUTHENTICATION_BACKENDS = [
     'base.backends.AuthBackend',
     'django.contrib.auth.backends.ModelBackend',
     #Login with social networks
-    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 #Login with social networks
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -174,7 +174,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 

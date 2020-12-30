@@ -5,4 +5,5 @@ from .models import VotingUser
 class RegisterVotingUserForm(ModelForm):
     class Meta:
         model = VotingUser
-        fields = ['dni', 'sexo', 'titulo', 'curso', 'candidatura']
+        fields = '__all__'
+        exclude = ['user']
