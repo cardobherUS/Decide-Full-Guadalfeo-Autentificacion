@@ -1,0 +1,44 @@
+{% load socialaccount %}
+<html>
+  <head>
+    <title>DECIDE FULL GUADALFEO</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'index/index.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Martel:wght@700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="menu">
+     <span>
+       <h1>DECIDE</h1>
+     </span>
+     <ul>
+       {% if user.is_authenticated %}
+        <li>Welcome, {{ user.username }} !</li>
+        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+       {% else %}
+          <li><a href="{% url 'auth_login' %}">Login</a></li>
+          <li><a href="{% provider_login_url 'google' %}">Login with Google</a> </li>
+       {% endif %}
+     </ul>
+   </nav>
+
+    <section id="main">
+        {% if user.id %}
+            {% if not voting_user%}
+                <div class="container">
+                    <a href="{% url 'auth_register_complete' %}">Finish setting your profile here to access the platform</a>
+                </div>
+            {% else %}
+              <div class="container">
+                  <p>Incluir vista main CON usuario loggeado</p>
+              </div>
+            {% endif %}
+        {% else %}
+            <div class="container">
+                  <p>Incluir vista main sin usuario loggeado</p>
+            </div>
+        {% endif %}
+    </section>
+
+  </body>
+</html>
