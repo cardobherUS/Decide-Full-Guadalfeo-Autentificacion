@@ -1,26 +1,12 @@
-{% load socialaccount %}
 <html>
-  <head>
-    <title>DECIDE FULL GUADALFEO</title>
+<head>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'index/index.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Martel:wght@700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <nav class="menu">
-     <span>
-       <h1>DECIDE</h1>
-     </span>
-     <ul>
-       {% if user.is_authenticated %}
-        <li>Welcome, {{ user.username }} !</li>
-        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-       {% else %}
-          <li><a href="{% url 'auth_login' %}">Login</a></li>
-          <li><a href="{% provider_login_url 'google' %}">Login with Google</a> </li>
-       {% endif %}
-     </ul>
-   </nav>
+    <link rel="stylesheet" type="text/css" href="{% static 'index/menu.css' %}">
+    <title>DECIDE FULL GUADALFEO</title>
+</head>
+<body>
+    {% include "index/menu.html" %}
 
     <section id="main">
         {% if user.id %}

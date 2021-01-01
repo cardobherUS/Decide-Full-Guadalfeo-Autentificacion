@@ -1,27 +1,13 @@
-{% load socialaccount %}
 <html>
-  <head>
+<head>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'votingusers/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'index/menu.css' %}">
     <title>DECIDE FULL GUADALFEO</title>
-  </head>
-  <body>
+</head>
+<body>
+    {% include "index/menu.html" %}
 
-  <nav class="menu">
-     <span>
-       <h1>DECIDE</h1>
-     </span>
-     <ul>
-         {% if user.is_authenticated %}
-            <li>Welcome, {{ user.username }} !</li>
-            <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-         {% else %}
-            <li><a href="{% url 'auth_login' %}">Login</a></li>
-            <li><a href="{% provider_login_url 'google' %}">Login with Google</a> </li>
-         {% endif %}
-     </ul>
-  </nav>
-  
   <div class="container">
 
         <h1>LOGIN</h1>
