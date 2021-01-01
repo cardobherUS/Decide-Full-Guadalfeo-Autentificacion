@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from rest_framework.status import (
+    HTTP_200_OK,
     HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
     HTTP_401_UNAUTHORIZED
@@ -82,7 +83,7 @@ class LoginUserView(APIView):
     def get(self, request):
 
         login_form = AuthenticationForm()
-        return render(request, 'users/login.html', {'login_form': login_form, })
+        return render(request, 'votingusers/login.html', {'login_form': login_form, })
 
     def post(self, request):
 
@@ -104,7 +105,7 @@ class CompleteVotingUserDetails(APIView):
 
         register_voting_user = RegisterVotingUserForm()
 
-        return render(request, 'users/registro.html', {'votinguser_form': register_voting_user, })
+        return render(request, 'votingusers/registro.html', {'votinguser_form': register_voting_user, })
 
     def post(self, request):
 
@@ -123,11 +124,10 @@ class CompleteVotingUserDetails(APIView):
             return redirect('/')
 
         else:
-            return render(request, 'users/registro.html', {'votinguser_form': votinguser_form, })
+            return render(request, 'votingusers/registro.html', {'votinguser_form': votinguser_form, })
 
 
 class RegisterUserView(APIView):
-
     def get(self, request):
 
         # CONDICION SI SOLO SE ESTA COMPLETANDO EL PERFIL: CASO DE LOGIN CON RRSS
@@ -136,7 +136,7 @@ class RegisterUserView(APIView):
             register_user = UserCreationForm()
             register_voting_user = RegisterVotingUserForm()
 
-            return render(request, 'users/registro.html',
+            return render(request, 'votingusers/registro.html',
                           {'user_form': register_user,
                            'votinguser_form': register_voting_user, }
                           )
@@ -148,7 +148,7 @@ class RegisterUserView(APIView):
 
             if not votinguser:
                 register_voting_user = RegisterVotingUserForm()
-                return render(request, 'users/registro.html',
+                return render(request, 'votingusers/registro.html',
                               {'votinguser_form': register_voting_user, }
                               )
             else:
@@ -157,20 +157,20 @@ class RegisterUserView(APIView):
                 except ObjectDoesNotExist:
                     votinguser = None
 
-                return render(request, 'users/registro.html', {'voting_user': votinguser})
+                return render(request, 'votingusers/registro.html', {'voting_user': votinguser})
 
     def post(self, request):
 
         user_form = UserCreationForm(request.POST)
-        votinguser_form = RegisterVotingUserForm(request.POST)
+        voting_user_form = RegisterVotingUserForm(request.POST)
 
-        if user_form.is_valid() and votinguser_form.is_valid():
+        if user_form.is_valid() and voting_user_form.is_valid():
 
             # CREATE USER FIRST
             user = user_form.save()
             Token.objects.get_or_create(user=user)
 
-            voting_user = votinguser_form.save(commit=False)
+            voting_user = voting_user_form.save(commit=False)
             voting_user.user = user
             voting_user.save()
 
@@ -183,8 +183,43 @@ class RegisterUserView(APIView):
                 return render(request, "index/error.html", {"error": "BAD LOGIN", })
 
         else:
-            return render(request, 'users/registro.html',
+            return render(request, 'votingusers/registro.html',
                           {'user_form': user_form,
-                           'votinguser_form': votinguser_form,
+                           'votinguser_form': voting_user_form,
                            }
                           )
+
+
+class GetVotingUser(APIView):
+    def post(self, request):
+
+        # Check for user logged
+        if request.user.id is None:
+            messages.error(request, 'You must be logged to access there!')
+            return redirect('auth_login')
+        else:
+            # Check for token to see if user is valid
+
+            try:
+                tk = Token.objects.get(user=request.user)
+            except ObjectDoesNotExist:
+                messages.error(request, 'User not valid!')
+                return redirect('auth_login')
+
+            try:
+                voting_user = VotingUser.objects.get(user=request.user)
+            except ObjectDoesNotExist:
+                messages.error(request, 'Finish setting your user account!')
+                return redirect('decide_main')
+
+            # Add the parameters you need that are in User or VotingUser
+            context = {
+                'username': request.user.username,
+                'sex': voting_user.sexo,
+                'grade': voting_user.titulo,
+                'year': voting_user.curso,
+                'age': voting_user.edad,
+                'token': tk.key,
+            }
+
+            return Response(context, HTTP_200_OK)

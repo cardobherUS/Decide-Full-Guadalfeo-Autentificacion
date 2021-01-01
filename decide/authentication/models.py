@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from voting.models import Candidatura
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class VotingUser(models.Model):
@@ -16,23 +18,32 @@ class VotingUser(models.Model):
     ], verbose_name="NIF")
 
     Sexo_Enum = (
-        ('HOMBRE', 'Man'),
-        ('MUJER', 'Woman'),
-        ('OTRO', 'Other'),
+        ('Man', 'Man'),
+        ('Woman', 'Woman'),
+        ('Other', 'Other'),
     )
-    sexo = models.CharField(max_length=6, choices=Sexo_Enum, default='OTRO', blank=False, verbose_name="Gender")
-    titulo = models.CharField(max_length=100, blank=False, verbose_name="Grade")
+    sexo = models.CharField(max_length=6, choices=Sexo_Enum, default='Other', blank=False, verbose_name="Gender")
+
+    Titulo_Enum = (
+        ('Software', 'Software'),
+        ('Computer Technology', 'Computer Technology'),
+        ('Information Technology', 'Information Technology'),
+        ('Health', 'Health'),
+    )
+    titulo = models.CharField(max_length=22, choices=Titulo_Enum, default='Software', blank=False, verbose_name="Grade")
 
     Curso_Enum = (
-        ('PRIMERO', 'First'),
-        ('SEGUNDO', 'Second'),
-        ('TERCERO', 'Third'),
-        ('CUARTO', 'Fourth'),
-        ('MASTER', 'Master'),
+        ('First', 'First'),
+        ('Second', 'Second'),
+        ('Third', 'Third'),
+        ('Fourth', 'Fourth'),
+        ('Master', 'Master'),
     )
 
-    curso = models.CharField(max_length=7, choices=Curso_Enum, default='PRIMERO', blank=False, verbose_name="Year")
+    curso = models.CharField(max_length=7, choices=Curso_Enum, default='First', blank=False, verbose_name="Year")
     candidatura = models.ForeignKey(Candidatura, blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Candidature")
+
+    edad = models.PositiveIntegerField(default=18, blank=False, null=False, validators=[MinValueValidator(17), MaxValueValidator(100)], verbose_name="age")
 
     def __str__(self):
         return self.user.__str__()
