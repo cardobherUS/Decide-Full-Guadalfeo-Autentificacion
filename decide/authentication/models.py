@@ -20,9 +20,8 @@ class VotingUser(models.Model):
     Sexo_Enum = (
         ('Man', 'Man'),
         ('Woman', 'Woman'),
-        ('Other', 'Other'),
     )
-    sexo = models.CharField(max_length=6, choices=Sexo_Enum, default='Other', blank=False, verbose_name="Gender")
+    sexo = models.CharField(max_length=6, choices=Sexo_Enum, default='Woman', blank=False, verbose_name="Gender")
 
     Titulo_Enum = (
         ('Software', 'Software'),
