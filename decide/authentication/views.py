@@ -250,7 +250,7 @@ class GetUserDetailsView(APIView):
                                   'error': 'Need to finish setting your profile',
                               })
 
-                user_form = ProfileUserForm(request.POST)
+                user_form = ProfileUserForm(request.POST, instance=request.user)
                 voting_user_form = ProfileVotingUserForm(request.POST)
 
                 if user_form.is_valid() and voting_user_form.is_valid():

@@ -5,11 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
 class CustomUserCreationForm(UserCreationForm):
-    def clean(self):
-       email = self.cleaned_data.get('email')
-       if User.objects.filter(email=email).exists():
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
             raise ValidationError("This email is already in use")
-       return self.cleaned_data
+        return email
 
     class Meta:
         model = User
@@ -23,12 +23,14 @@ class RegisterVotingUserForm(ModelForm):
 
 
 class ProfileUserForm(ModelForm):
-    def clean(self):
-       email = self.cleaned_data.get('email')
-       if User.objects.filter(email=email).exists():
-            raise ValidationError("This email is already in use")
-       return self.cleaned_data
-
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        email_exists = User.objects.filter(email=email).exclude(pk=self.instance.pk)
+        if self.instance and self.instance.pk and not email_exists:
+            return email 
+        else :
+            raise ValidationError ("This email is already in use")
+    
     class Meta:
         model = User
         fields = ['username','email']
