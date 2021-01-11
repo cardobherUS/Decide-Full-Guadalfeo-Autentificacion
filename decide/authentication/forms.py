@@ -1,7 +1,12 @@
 from django.forms import ModelForm
 from .models import VotingUser
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ["username", "email","password1", "password2"]
 
 class RegisterVotingUserForm(ModelForm):
     class Meta:
@@ -13,7 +18,7 @@ class RegisterVotingUserForm(ModelForm):
 class ProfileUserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username']
+        fields = ['username','email']
 
 
 class ProfileVotingUserForm(ModelForm):

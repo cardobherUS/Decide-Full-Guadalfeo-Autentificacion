@@ -16,8 +16,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from .serializers import UserSerializer
 
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .forms import RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserForm
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserForm, CustomUserCreationForm
 from django.contrib import messages
 from .models import VotingUser
 
@@ -133,7 +133,7 @@ class RegisterUserView(APIView):
         # CONDICION SI SOLO SE ESTA COMPLETANDO EL PERFIL: CASO DE LOGIN CON RRSS
 
         if not request.user.id:
-            register_user = UserCreationForm()
+            register_user = CustomUserCreationForm()
             register_voting_user = RegisterVotingUserForm()
 
             return render(request, 'votingusers/registro.html',
@@ -161,7 +161,7 @@ class RegisterUserView(APIView):
 
     def post(self, request):
 
-        user_form = UserCreationForm(request.POST)
+        user_form = CustomUserCreationForm(request.POST)
         voting_user_form = RegisterVotingUserForm(request.POST)
 
         if user_form.is_valid() and voting_user_form.is_valid():
@@ -212,6 +212,7 @@ class GetUserDetailsView(APIView):
 
                 register_user = ProfileUserForm(initial={
                     'username': request.user.username,
+                    'email': request.user.email,
                 })
 
                 register_voting_user = ProfileVotingUserForm(initial={
@@ -255,6 +256,7 @@ class GetUserDetailsView(APIView):
                 if user_form.is_valid() and voting_user_form.is_valid():
 
                     request.user.username = user_form.cleaned_data['username']
+                    request.user.email = user_form.cleaned_data['email']
 
                     votinguser.titulo = voting_user_form.cleaned_data['titulo']
                     votinguser.curso = voting_user_form.cleaned_data['curso']

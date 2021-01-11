@@ -66,6 +66,8 @@ REST_FRAMEWORK = {
 AUTHENTICATION_BACKENDS = [
     'base.backends.AuthBackend',
     'django.contrib.auth.backends.ModelBackend',
+    #Login with email
+    'authentication.backends.EmailAuthBackend',
     #Login with social networks
     'allauth.account.auth_backends.AuthenticationBackend',
     #BackEnd Github
