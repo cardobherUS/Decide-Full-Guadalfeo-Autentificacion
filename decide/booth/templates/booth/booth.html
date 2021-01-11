@@ -28,9 +28,11 @@
         <div class="voting">
             <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
 
+            {% if user.username is None %}
             <!-- Register -->
             <b-form @submit="onSubmitLogin" v-if="signup">
                 <b-form-group label="{% trans "Username" %}" label-for="username">
+                    {% csrf_token %}
                     <b-form-input
                         id="username"
                         type="text"
@@ -50,7 +52,8 @@
             </b-form>
 
             <!-- Voting -->
-            <div v-if="!signup">
+            {% else %}
+            <div>
                 <h2>[[ voting.question.desc ]]</h2>
                 <b-form-group v-for="opt in voting.question.options" :key="opt.number">
                     <b-form-radio v-model="selected"
@@ -64,6 +67,7 @@
                     {% trans "Vote" %}
                 </b-button>
             </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
