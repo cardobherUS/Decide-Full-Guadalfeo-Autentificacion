@@ -17,7 +17,7 @@ from .serializers import UserSerializer
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .forms import RegisterVotingUserForm
+from .forms import RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserForm
 from django.contrib import messages
 from .models import VotingUser
 
@@ -188,6 +188,97 @@ class RegisterUserView(APIView):
                            'votinguser_form': voting_user_form,
                            }
                           )
+
+# VIEW PROFILE
+
+
+class GetUserDetailsView(APIView):
+    def get(self, request, id):
+        if request.user.id is None:
+            return render(request, 'index/error.html',
+                          {
+                              "error": "You are not logged in!",
+                          })
+        else:
+            if request.user.id == id:
+
+                try:
+                    votinguser = VotingUser.objects.get(user=request.user.id)
+                except ObjectDoesNotExist:
+                    return render(request, 'index/error.html',
+                              {
+                                  'error': 'Need to finish setting your profile',
+                              })
+
+                register_user = ProfileUserForm(initial={
+                    'username': request.user.username,
+                })
+
+                register_voting_user = ProfileVotingUserForm(initial={
+                    'titulo': votinguser.titulo,
+                    'curso': votinguser.curso,
+                    'edad': votinguser.edad,
+                })
+
+                return render(request, 'votingusers/profile.html',
+                              {
+                                  'votinguser': votinguser,
+                                  'user_form': register_user,
+                                  'voting_user_form': register_voting_user,
+                              })
+            else:
+                return render(request, "index/error.html",
+                              {
+                                  "error": "Not authorized!",
+                              })
+
+    def post(self, request, id):
+        if request.user.id is None:
+            return render(request, 'index/error.html',
+                          {
+                              "error": "You are not logged in!",
+                          })
+        else:
+            if request.user.id == id:
+
+                try:
+                    votinguser = VotingUser.objects.get(user=request.user.id)
+                except ObjectDoesNotExist:
+                    return render(request, 'index/error.html',
+                              {
+                                  'error': 'Need to finish setting your profile',
+                              })
+
+                user_form = ProfileUserForm(request.POST)
+                voting_user_form = ProfileVotingUserForm(request.POST)
+
+                if user_form.is_valid() and voting_user_form.is_valid():
+
+                    request.user.username = user_form.cleaned_data['username']
+
+                    votinguser.titulo = voting_user_form.cleaned_data['titulo']
+                    votinguser.curso = voting_user_form.cleaned_data['curso']
+                    votinguser.edad = voting_user_form.cleaned_data['edad']
+
+                    request.user.save()
+                    votinguser.save()
+
+                    return redirect('/')
+
+                else:
+                    return render(request, 'votingusers/profile.html',
+                                  {'user_form': user_form,
+                                   'voting_user_form': voting_user_form,
+                                   }
+                                  )
+            else:
+                return render(request, "index/error.html",
+                              {
+                                  "error": "Not authorized!",
+                              })
+
+
+    # API
 
 
 class GetVotingUser(APIView):
