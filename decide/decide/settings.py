@@ -72,6 +72,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     #BackEnd Github
     'social_core.backends.github.GithubOAuth2',
+    #BackEnd Linkedin
+    'social_core.backends.linkedin.LinkedinOAuth2' ,
 ]
 
 #Login with social networks
@@ -83,6 +85,10 @@ LOGOUT_REDIRECT_URL = '/'
 #Github
 SOCIAL_AUTH_GITHUB_KEY = 'f1cdcd7ded3ef6491888'
 SOCIAL_AUTH_GITHUB_SECRET = '38e5b6bbacec1f56ff2e3849742a67d7ab54b52e'
+
+#Linkedin
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '77upgo9aosfx0q'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'vdG8AvMdkRsuLv8q'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
