@@ -53,6 +53,38 @@ class AuthTestCase(APITestCase):
         response = self.client.get('/authentication/decide/register/')
         self.assertRedirects(response, '/authentication/decide/register/complete/', status_code=302, target_status_code=200, fetch_redirect_response=True)
 
+    def test_get_register_logged_user_complete_profile(self):
+        self.client.force_authenticate(self.user2)
+
+        response = self.client.get('/authentication/decide/register/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'votingusers/registro.html')
+        self.assertNotIn('user_form', response.context)
+        self.assertNotIn('votinguser_form', response.context)
+
+    '''
+    def test_register(self):
+        self.client.logout()
+        response = self.client.get('/authentication/decide/register/')
+        csrftoken = response.cookies['csrftoken']
+        self.assertEqual(response.status_code, 200)
+        data = {
+            "username": "voter3",
+            "email": "voter3@gmail.com",
+            "password1": "vekto123",
+            "password2": "vekto123",
+            "dni": "12345677N",
+            "sexo": "Woman",
+            "titulo": "Software",
+            "curso": "First",
+            "candidatura": "",
+            "edad": "18"
+        }
+        response = self.client.post('/authentication/decide/register/', data, format='json', headers={'X-CSRFToken':csrftoken})
+        self.assertTemplateUsed(response, 'votingusers/registro.html')
+        self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+    '''
+
     '''def test_login(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')

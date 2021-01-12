@@ -169,7 +169,6 @@ class RegisterUserView(APIView):
             voting_user.save()
 
             auth_user = authenticate(request, username=user.username, password=user_form.cleaned_data['password1'])
-            print(auth_user)
             if auth_user is not None:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('/')
