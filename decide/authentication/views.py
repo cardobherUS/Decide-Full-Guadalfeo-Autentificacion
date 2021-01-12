@@ -130,7 +130,7 @@ class CompleteVotingUserDetails(APIView):
 class RegisterUserView(APIView):
     def get(self, request):
 
-        # CONDICION SI SOLO SE ESTA COMPLETANDO EL PERFIL: CASO DE LOGIN CON RRSS
+        #Comprobamos si el usuario esta logueado
 
         if not request.user.id:
             register_user = CustomUserCreationForm()
@@ -146,17 +146,14 @@ class RegisterUserView(APIView):
             except ObjectDoesNotExist:
                 votinguser = None
 
+            #Comprobamos si el usuario tiene un perfil completo
+
             if not votinguser:
                 register_voting_user = RegisterVotingUserForm()
                 return render(request, 'votingusers/registro.html',
                               {'votinguser_form': register_voting_user, }
                               )
             else:
-                try:
-                    votinguser = VotingUser.objects.get(user=request.user.id)
-                except ObjectDoesNotExist:
-                    votinguser = None
-
                 return render(request, 'votingusers/registro.html', {'voting_user': votinguser})
 
     def post(self, request):
