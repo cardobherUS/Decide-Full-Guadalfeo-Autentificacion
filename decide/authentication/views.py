@@ -149,10 +149,7 @@ class RegisterUserView(APIView):
             #Comprobamos si el usuario tiene un perfil completo
 
             if not votinguser:
-                register_voting_user = RegisterVotingUserForm()
-                return render(request, 'votingusers/registro.html',
-                              {'votinguser_form': register_voting_user, }
-                              )
+                return redirect('complete/')
             else:
                 return render(request, 'votingusers/registro.html', {'voting_user': votinguser})
 
