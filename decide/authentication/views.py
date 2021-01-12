@@ -20,6 +20,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserForm, CustomUserCreationForm
 from django.contrib import messages
 from .models import VotingUser
+from voting.models import Voting
 
 
 class GetUserView(APIView):
@@ -67,12 +68,18 @@ class RegisterView(APIView):
 
 class IndexUserView(APIView):
     def get(self, request):
+
         try:
             votinguser = VotingUser.objects.get(user=request.user.id)
         except ObjectDoesNotExist:
             votinguser = None
 
-        return render(request, 'index/index.html', {"voting_user": votinguser})
+        print(Voting.objects.all())
+
+        return render(request, 'index/index.html', {
+            "voting_user": votinguser,
+            "votes": Voting.objects.all(),
+        })
 
 
 # REGISTER USER #
@@ -280,8 +287,7 @@ class GetUserDetailsView(APIView):
                               })
 
 
-    # API
-
+# API
 
 class GetVotingUser(APIView):
     def post(self, request):
@@ -313,6 +319,42 @@ class GetVotingUser(APIView):
                 'year': voting_user.curso,
                 'age': voting_user.edad,
                 'token': tk.key,
+            }
+
+            return Response(context, HTTP_200_OK)
+
+
+class GetGenresByIds(APIView):
+    def post(self, request):
+
+        # Check for user logged
+        if request.user.id is None:
+            messages.error(request, 'You must be logged to access there!')
+            return redirect('auth_login')
+        else:
+            # Check for token to see if user is valid
+
+            try:
+                tk = Token.objects.get(user=request.user)
+            except ObjectDoesNotExist:
+                messages.error(request, 'User not valid!')
+                return redirect('auth_login')
+
+            genres = []
+
+            for id in request.data:
+
+                try:
+                    user = User.objects.get(id=id)
+                    voting_user = VotingUser.objects.get(user=user)
+                    genres.append(voting_user.sexo)
+                except ObjectDoesNotExist:
+                    messages.error(request, 'Finish setting your user account!')
+                    return redirect('decide_main')
+
+            # Add the parameters you need that are in User or VotingUser
+            context = {
+                'genres': genres,
             }
 
             return Response(context, HTTP_200_OK)

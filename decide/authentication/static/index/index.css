@@ -4,58 +4,58 @@
     font-family: sans-serif;
 }
 
-.menu a
-{
-    color: white;
-    text-decoration: none;
-}
-
-.menu a:visited
-{
-    color:white;
-}
-
-.menu a:hover
-{
-    text-decoration: underline;
-}
-
-.menu
-{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    background-color: #00b894;
-    height: 75px;
-    color: white;
-}
-
-.menu span
-{
-    flex-grow: 1;
-    padding: 10px;
-    align-self: center;
-}
-
-.menu ul
-{
-    direction: lt;
-    display: flex;
-    flex-grow: 1;
-    align-self: center;
-    justify-content: flex-end;
-    list-style-type: none;
-}
-
-.menu ul li
-{
-    padding: 10px;
-}
-
 .container
 {
     margin: 3rem auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.votes_container
+{
+    padding: 10px;
+    width: 50%;
+    height: 175px;
+
+    white-space: nowrap;
+
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+.vote
+{
+    display: inline-block;
+
+    margin: 5px;
+    width: 175px;
+    height: 100%;
+
+    border-radius: 5px;
+
+    text-align: center;
+
+    background-color: #dfe6e9;
+    transition: 0.4s;
+}
+
+.vote:hover
+{
+    background-color: #55efc4;
+}
+
+.vote a
+{
+    width: 100%;
+    height: 100%;
+    line-height: 160px;
+    color: black;
+    margin: auto;
+    transition: 0.2s;
+}
+
+.vote a:hover
+{
+    color: white;
 }

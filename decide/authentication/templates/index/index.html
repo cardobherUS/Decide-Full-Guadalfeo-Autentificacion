@@ -12,16 +12,54 @@
         {% if user.id %}
             {% if not voting_user%}
                 <div class="container">
-                    <a href="{% url 'auth_register_complete' %}">Finish setting your profile here to access the platform</a>
+                    <h3>Votings Visualizer</h3>
+
+                    {% if not votes %}
+                        <p>There are no votes</p>
+                    {% else %}
+                        <ul class="votes_container">
+                            {% for vote in votes %}
+                                <li class="vote">
+                                    <a href="/visualizer/{{vote.id}}">{{vote.name}}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    <a href="{% url 'auth_register_complete' %}" style="margin-top: 50px">Finish setting your profile here to access the platform</a>
                 </div>
             {% else %}
               <div class="container">
-                  <p>Incluir vista main CON usuario loggeado</p>
-              </div>
+                <h3>Votings Visualizer</h3>
+
+                {% if not votes %}
+                    <p>There are no votes</p>
+                {% else %}
+                    <ul class="votes_container">
+                        {% for vote in votes %}
+                            <li class="vote">
+                                <a href="/visualizer/{{vote.id}}">{{vote.name}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
             {% endif %}
         {% else %}
             <div class="container">
-                  <p>Incluir vista main sin usuario loggeado</p>
+                <h3>Votings Visualizer</h3>
+
+                {% if not votes %}
+                    <p>There are no votes</p>
+                {% else %}
+                    <ul class="votes_container">
+                        {% for vote in votes %}
+                            <li class="vote">
+                                <a href="/visualizer/{{vote.id}}">{{vote.name}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         {% endif %}
     </section>
