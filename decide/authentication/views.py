@@ -74,8 +74,6 @@ class IndexUserView(APIView):
         except ObjectDoesNotExist:
             votinguser = None
 
-        print(Voting.objects.all())
-
         return render(request, 'index/index.html', {
             "voting_user": votinguser,
             "votes": Voting.objects.all(),
