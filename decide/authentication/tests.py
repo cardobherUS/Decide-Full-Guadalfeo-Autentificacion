@@ -62,28 +62,32 @@ class AuthTestCase(APITestCase):
         self.assertNotIn('user_form', response.context)
         self.assertNotIn('votinguser_form', response.context)
 
-    '''
+
     def test_register(self):
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
+
         data = {
-            "username": "voter3",
-            "email": "voter3@gmail.com",
-            "password1": "vekto123",
-            "password2": "vekto123",
-            "dni": "12345677N",
+            "username": "username1999",
+            "email": "username1999@gmail.com",
+            "password1": "password1234",
+            "password2": "password1234",
+            "dni": "11112222A",
             "sexo": "Woman",
             "titulo": "Software",
             "curso": "First",
             "candidatura": "",
             "edad": "18"
         }
-        response = self.client.post('/authentication/decide/register/', data, format='json', headers={'X-CSRFToken':csrftoken})
-        self.assertTemplateUsed(response, 'votingusers/registro.html')
+        response = self.client.post('/authentication/decide/register/', data=data, headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            'X-CSRFToken': csrftoken
+        })
+
         self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=True)
-    '''
+
 
     '''def test_login(self):
         data = {'username': 'voter1', 'password': '123'}
