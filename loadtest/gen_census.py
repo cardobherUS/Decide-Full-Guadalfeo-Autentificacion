@@ -37,7 +37,7 @@ def add_census(voters_pk, voting_pk):
     Add to census all voters_pk in the voting_pk.
     """
     data = {'username': USER, 'password': PASS}
-    response = requests.post(HOST + '/authentication/login/', data=data)
+    response = requests.post(HOST + '/authentication/login/', data=dgen_usersata)
     token = response.json()
 
     data2 = {'voters': voters_pk, 'voting_id': voting_pk}
