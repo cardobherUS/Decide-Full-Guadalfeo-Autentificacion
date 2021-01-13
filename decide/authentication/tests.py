@@ -40,6 +40,7 @@ class AuthTestCase(APITestCase):
         u3.save()
         self.user3 = u3
 
+
  
 
     def tearDown(self):
@@ -61,7 +62,7 @@ class AuthTestCase(APITestCase):
             "edad": edad
         }
         return data
-
+    
     def test_get_register_anonymous(self):
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
@@ -324,7 +325,8 @@ class AuthTestCase(APITestCase):
         response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
 
         self.assertEqual(response.status_code, 200)
-
+    
+    '''
     def test_get_user_anonymous(self):
         self.client.logout()
 
@@ -354,15 +356,37 @@ class AuthTestCase(APITestCase):
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), 'Finish setting your user account!')
+    '''
+    def test_get_user(self):
+        data = {'username': 'voter1', 'password': '123'}
+        response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+        token = response.json()
 
-    def test_get_user_complete_profile(self):
-        self.client.force_authenticate(self.user2)
-
-        response = self.client.post('/authentication/getuser/', follow=True)
-
+        response = self.client.post('/authentication/getuser/', token, format='json')
         self.assertEqual(response.status_code, 200)
 
-    '''def test_login(self):
+    def test_get_user_anonymous(self):
+        data = {}
+        response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 400)
+
+
+    def test_get_user_without_token(self):
+        data = {'username': 'voter1', 'password': '123'}
+        response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post('/authentication/getuser/', format='json')
+        self.assertEqual(response.status_code, 404)
+
+    def test_get_user_incomplete_profile(self):
+        data = {'username': 'voter1'}
+        response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 400)
+
+    '''
+    def test_login(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')
         self.assertEqual(response.status_code, 200)
@@ -374,7 +398,7 @@ class AuthTestCase(APITestCase):
         data = {'username': 'voter1', 'password': '321'}
         response = self.client.post('/authentication/login/', data, format='json')
         self.assertEqual(response.status_code, 400)
-
+    
     def test_getuser(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')
@@ -384,10 +408,7 @@ class AuthTestCase(APITestCase):
         response = self.client.post('/authentication/getuser/', token, format='json')
         self.assertEqual(response.status_code, 200)
 
-        user = response.json()
-        self.assertEqual(user['id'], 1)
-        self.assertEqual(user['username'], 'voter1')
-
+    
     def test_getuser_invented_token(self):
         token = {'token': 'invented'}
         response = self.client.post('/authentication/getuser/', token, format='json')
