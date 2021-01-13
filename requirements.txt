@@ -13,3 +13,4 @@ django-allauth==0.44.0
 social-auth-app-django==4.0.0
 django-heroku
 gunicorn
+parameterized==0.8.1

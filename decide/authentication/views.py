@@ -21,15 +21,16 @@ from .forms import RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserFor
 from django.contrib import messages
 from .models import VotingUser
 
-
 class GetUserView(APIView):
     def post(self, request):
         key = request.data.get('token', '')
         tk = get_object_or_404(Token, key=key)
         return Response(UserSerializer(tk.user, many=False).data)
 
-
 class LogoutView(APIView):
+    def get(self,request):
+        return redirect('/')
+
     def post(self, request):
         key = request.data.get('token', '')
         try:
@@ -39,7 +40,6 @@ class LogoutView(APIView):
             pass
 
         return Response({})
-
 
 class RegisterView(APIView):
     def post(self, request):
@@ -155,32 +155,38 @@ class RegisterUserView(APIView):
 
     def post(self, request):
 
-        user_form = CustomUserCreationForm(request.POST)
-        voting_user_form = RegisterVotingUserForm(request.POST)
+        #Comprobamos si el usuario esta logueado
 
-        if user_form.is_valid() and voting_user_form.is_valid():
+        if not request.user.id:
 
-            # CREATE USER FIRST
-            user = user_form.save()
-            Token.objects.get_or_create(user=user)
+            user_form = CustomUserCreationForm(request.POST)
+            voting_user_form = RegisterVotingUserForm(request.POST)
 
-            voting_user = voting_user_form.save(commit=False)
-            voting_user.user = user
-            voting_user.save()
+            if user_form.is_valid() and voting_user_form.is_valid():
 
-            auth_user = authenticate(request, username=user.username, password=user_form.cleaned_data['password1'])
-            if auth_user is not None:
-                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('/')
+                # CREATE USER FIRST
+                user = user_form.save()
+                Token.objects.get_or_create(user=user)
+
+                voting_user = voting_user_form.save(commit=False)
+                voting_user.user = user
+                voting_user.save()
+
+                auth_user = authenticate(request, username=user.username, password=user_form.cleaned_data['password1'])
+                if auth_user is not None:
+                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                    return redirect('/')
+                else:
+                    return render(request, "index/error.html", {"error": "BAD LOGIN", })
+
             else:
-                return render(request, "index/error.html", {"error": "BAD LOGIN", })
-
+                return render(request, 'votingusers/registro.html',
+                            {'user_form': user_form,
+                            'votinguser_form': voting_user_form,
+                            }
+                            )
         else:
-            return render(request, 'votingusers/registro.html',
-                          {'user_form': user_form,
-                           'votinguser_form': voting_user_form,
-                           }
-                          )
+            return redirect('/')
 
 # VIEW PROFILE
 
