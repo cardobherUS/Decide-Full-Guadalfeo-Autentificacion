@@ -36,7 +36,22 @@ class AdminTestCase(StaticLiveServerTestCase):
         self.driver.set_window_size(728, 536)
         self.driver.find_element(By.CSS_SELECTOR, "h3").click()
         assert self.driver.find_element(By.CSS_SELECTOR, "h3").text == "Votings Visualizer"
-    
+
+    def test_testLogout(self):
+        self.driver.get("http://127.0.0.1:8000/")
+        self.driver.set_window_size(728, 536)
+        self.driver.find_element(By.LINK_TEXT, "Register").click()
+        self.driver.find_element(By.ID, "id_username").send_keys("test-01")
+        self.driver.find_element(By.ID, "id_email").send_keys("test-01@gmail.com")
+        self.driver.find_element(By.ID, "id_password1").send_keys("t123t456")
+        self.driver.find_element(By.ID, "id_password2").click()
+        self.driver.find_element(By.ID, "id_password2").send_keys("t123t456")
+        self.driver.find_element(By.ID, "id_dni").click()
+        self.driver.find_element(By.ID, "id_dni").send_keys("12345678A")
+        self.driver.find_element(By.ID, "id_dni").send_keys("12345678H")
+        self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+        self.driver.find_element(By.LINK_TEXT, "Logout").click()
+        assert self.driver.find_element(By.CSS_SELECTOR, "h3").text == "Votings Visualizer"
 
 
     def test_simpleCorrectLogin(self):                    

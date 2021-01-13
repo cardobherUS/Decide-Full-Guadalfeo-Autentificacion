@@ -95,6 +95,13 @@ class AuthTestCase(APITestCase):
         self.assertNotIn('user_form', response.context)
         self.assertNotIn('votinguser_form', response.context)
 
+
+    def test_logout(self):
+        self.client.force_authenticate(self.user1)
+        response = self.client.get('/authentication/decide/logout/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'index/index.html')
+
     def test_register_correct(self):
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
