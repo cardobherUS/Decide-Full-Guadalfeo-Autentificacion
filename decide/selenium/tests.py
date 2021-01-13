@@ -31,6 +31,14 @@ class AdminTestCase(StaticLiveServerTestCase):
 
         self.base.tearDown()
 
+    def test_get_user_index_view(self):
+        self.driver.get("http://127.0.0.1:8000/")
+        self.driver.set_window_size(728, 536)
+        self.driver.find_element(By.CSS_SELECTOR, "h3").click()
+        assert self.driver.find_element(By.CSS_SELECTOR, "h3").text == "Votings Visualizer"
+    
+
+
     def test_simpleCorrectLogin(self):                    
         self.driver.get(f'{self.live_server_url}/admin/')
         self.driver.find_element_by_id('id_username').send_keys("admin")
