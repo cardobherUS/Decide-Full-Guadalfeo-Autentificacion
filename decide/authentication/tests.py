@@ -40,6 +40,8 @@ class AuthTestCase(APITestCase):
         u3.save()
         self.user3 = u3
 
+ 
+
     def tearDown(self):
         self.client = None
 
@@ -323,6 +325,42 @@ class AuthTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_get_user_anonymous(self):
+        self.client.logout()
+
+        response = self.client.post('/authentication/getuser/', follow=True)
+
+        self.assertRedirects(response, '/authentication/login/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'You must be logged to access there!')
+
+    def test_get_user_without_token(self):
+        self.client.force_authenticate(self.user3)
+
+        response = self.client.post('/authentication/getuser/', follow=True)
+
+        self.assertRedirects(response, '/authentication/login/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'User not valid!')
+
+    def test_get_voting_user_incomplete_profile(self):
+        self.client.force_authenticate(self.user1)
+
+        response = self.client.post('/authentication/getuser/', follow=True)
+
+        self.assertRedirects(response, '/authentication/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'Finish setting your user account!')
+
+    def test_get_user_complete_profile(self):
+        self.client.force_authenticate(self.user2)
+
+        response = self.client.post('/authentication/getuser/', follow=True)
+
+        self.assertEqual(response.status_code, 200)
 
     '''def test_login(self):
         data = {'username': 'voter1', 'password': '123'}
