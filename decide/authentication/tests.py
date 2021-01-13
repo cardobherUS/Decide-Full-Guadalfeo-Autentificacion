@@ -35,6 +35,11 @@ class AuthTestCase(APITestCase):
         t2.save()
         self.token2 = t2
 
+        u3 = User(username='voter3')
+        u3.set_password('123')
+        u3.save()
+        self.user3 = u3
+
     def tearDown(self):
         self.client = None
 
@@ -284,21 +289,37 @@ class AuthTestCase(APITestCase):
     def test_get_voting_user_anonymous(self):
         self.client.logout()
 
-        response = self.client.post('/authentication/decide/getVotingUser/')
+        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
 
         self.assertRedirects(response, '/authentication/decide/login/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'You must be logged to access there!')
+
+    def test_get_voting_user_without_token(self):
+        self.client.force_authenticate(self.user3)
+
+        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
+
+        self.assertRedirects(response, '/authentication/decide/login/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'User not valid!')
 
     def test_get_voting_user_incomplete_profile(self):
-        self.client.force_authenticate(user=self.user1)
+        self.client.force_authenticate(self.user1)
 
-        response = self.client.post('/authentication/decide/getVotingUser/')
+        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
 
         self.assertRedirects(response, '/authentication/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'Finish setting your user account!')
 
     def test_get_voting_user_complete_profile(self):
-        self.client.force_authenticate(user=self.user2)
+        self.client.force_authenticate(self.user2)
 
-        response = self.client.post('/authentication/decide/getVotingUser/', )
+        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
 
         self.assertEqual(response.status_code, 200)
 
