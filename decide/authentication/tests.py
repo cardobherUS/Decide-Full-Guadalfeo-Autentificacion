@@ -408,11 +408,11 @@ class AuthTestCase(APITestCase):
     #CompleteVotingUserDetails
 
     def test_get_complete_voting_user_details(self):
-        response = self.client.get('decide/register/complete/', format='json')
+        response = self.client.get('/decide/register/complete/', format='json')
         self.assertEqual(response.status_code, 200)
 
     def test_post_complete_voting_user_details(self):
-        response = self.client.post('decide/register/complete/', format='json')
+        response = self.client.post('/decide/register/complete/', format='json')
         self.assertEqual(response.status_code, 200)
 
     '''
