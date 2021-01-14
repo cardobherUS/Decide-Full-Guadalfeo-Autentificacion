@@ -30,11 +30,11 @@ class TestRegister(StaticLiveServerTestCase):
 
     super().setUp()
 
-    u1 = User(username='voter1')
+    u1 = User(first_name='User',last_name='Voting',username='voter1')
     u1.set_password('123')
     u1.save()
 
-    u2 = User(username='voter2', email='voter2@gmail.com')
+    u2 = User(first_name='User',last_name='Voting2',username='voter2', email='voter2@gmail.com')
     u2.set_password('123')
     u2.save()
     vu2 = VotingUser(user=u2, dni='45454545T', sexo='Man', titulo='Software', curso='First', edad=18)
@@ -51,30 +51,32 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Register").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "REGISTER"
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(3) > label").text == "Username:"
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(4) > label").text == "Email address:"
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(5) > label").text == "Password:"
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(8) > label").text == "Password confirmation:"
-    assert self.driver.find_element(By.CSS_SELECTOR, "h3:nth-child(9)").text == "Voting User"
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(10) > label").text == "NIF:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(3) > label").text == "First name:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(4) > label").text == "Last name:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(5) > label").text == "Username:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(6) > label").text == "Email address:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(7) > label").text == "Password:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(10) > label").text == "Password confirmation:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "h3:nth-child(11)").text == "Voting User"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(12) > label").text == "NIF:"
     value = self.driver.find_element(By.ID, "id_dni").get_attribute("value")
     assert value == ""
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(11) > label").text == "Gender:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(13) > label").text == "Gender:"
     value = self.driver.find_element(By.ID, "id_sexo").get_attribute("value")
     assert value == "Woman"
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(12) > label").text == "Grade:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(14) > label").text == "Grade:"
     value = self.driver.find_element(By.ID, "id_titulo").get_attribute("value")
     assert value == "Software"
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(13) > label").text == "Year:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(15) > label").text == "Year:"
     value = self.driver.find_element(By.ID, "id_curso").get_attribute("value")
     assert value == "First"
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(14) > label").text == "Candidature:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(16) > label").text == "Candidature:"
     value = self.driver.find_element(By.ID, "id_candidatura").get_attribute("value")
     assert value == ""
-    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(15) > label").text == "Age:"
+    assert self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(17) > label").text == "Age:"
     value = self.driver.find_element(By.ID, "id_edad").get_attribute("value")
     assert value == "18"
-    value = self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").get_attribute("value")
+    value = self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").get_attribute("value")
     assert value == "Submit"
 
   def test_getRegisterLoggedUserIncompleteProfile(self):
@@ -109,7 +111,7 @@ class TestRegister(StaticLiveServerTestCase):
     assert value == "18"
     value = self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(9)").get_attribute("value")
     assert value == "Submit"
-  
+
   def test_getRegisterLoggedUserCompleteProfile(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
@@ -126,12 +128,14 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Register").click()
+    self.driver.find_element(By.ID, "id_first_name").send_keys("User")
+    self.driver.find_element(By.ID, "id_last_name").send_keys("Voting3")
     self.driver.find_element(By.ID, "id_username").send_keys("username1988")
     self.driver.find_element(By.ID, "id_email").send_keys("username1988@gmail.com")
     self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
     self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
     self.driver.find_element(By.ID, "id_dni").send_keys("48978965K")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.LINK_TEXT, "username1988").text == "username1988"
 
   def test_registerEmptyFields(self):
@@ -140,14 +144,20 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.find_element(By.LINK_TEXT, "Register").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "REGISTER"
     self.driver.find_element(By.ID, "id_email").send_keys("username1989@gmail.com")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "REGISTER"
+    self.driver.find_element(By.ID, "id_first_name").send_keys("User")
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "REGISTER"
+    self.driver.find_element(By.ID, "id_last_name").send_keys("Voting3")
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "REGISTER"
     self.driver.find_element(By.ID, "id_username").send_keys("username1989")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "REGISTER"
     self.driver.find_element(By.ID, "id_password1").send_keys("pasword1234")
     self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "REGISTER"
     value = self.driver.find_element(By.ID, "id_dni").get_attribute("value")
     assert value == ""
@@ -156,72 +166,82 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Register").click()
+    self.driver.find_element(By.ID, "id_first_name").send_keys("User")
+    self.driver.find_element(By.ID, "id_last_name").send_keys("Voting3")
     self.driver.find_element(By.ID, "id_username").send_keys("username1900")
     self.driver.find_element(By.ID, "id_email").send_keys("username1900@gmail.com")
     self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
     self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
     self.driver.find_element(By.ID, "id_dni").send_keys("45454545T")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "Voting user with this NIF already exists."
   
   def test_registerDuplicatedEmail(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Register").click()
+    self.driver.find_element(By.ID, "id_first_name").send_keys("User")
+    self.driver.find_element(By.ID, "id_last_name").send_keys("Voting3")
     self.driver.find_element(By.ID, "id_username").send_keys("username1900")
     self.driver.find_element(By.ID, "id_email").send_keys("voter2@gmail.com")
     self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
     self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
     self.driver.find_element(By.ID, "id_dni").send_keys("48978900K")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "This email is already in use"
   
   def test_registerDuplicatedUsername(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Register").click()
+    self.driver.find_element(By.ID, "id_first_name").send_keys("User")
+    self.driver.find_element(By.ID, "id_last_name").send_keys("Voting3")
     self.driver.find_element(By.ID, "id_username").send_keys("voter2")
     self.driver.find_element(By.ID, "id_email").send_keys("username1900@gmail.com")
     self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
     self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
     self.driver.find_element(By.ID, "id_dni").send_keys("48978900K")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "A user with that username already exists."
 
   def test_registerDifferentPasswords(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Register").click()
+    self.driver.find_element(By.ID, "id_first_name").send_keys("User")
+    self.driver.find_element(By.ID, "id_last_name").send_keys("Voting3")
     self.driver.find_element(By.ID, "id_username").send_keys("username1900")
     self.driver.find_element(By.ID, "id_email").send_keys("username1900@gmail.com")
     self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
     self.driver.find_element(By.ID, "id_password2").send_keys("password4321")
     self.driver.find_element(By.ID, "id_dni").send_keys("48978900K")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "The two password fields didn't match."
 
   def test_registerWrongPasswordFormat(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Register").click()
+    self.driver.find_element(By.ID, "id_first_name").send_keys("User")
+    self.driver.find_element(By.ID, "id_last_name").send_keys("Voting3")
     self.driver.find_element(By.ID, "id_username").send_keys("username1900")
     self.driver.find_element(By.ID, "id_email").send_keys("username1900@gmail.com")
     self.driver.find_element(By.ID, "id_password1").send_keys("username1900")
     self.driver.find_element(By.ID, "id_password2").send_keys("username1900")
     self.driver.find_element(By.ID, "id_dni").send_keys("48978900K")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(18)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "The password is too similar to the username."
     self.driver.find_element(By.ID, "id_password1").send_keys("pass12")
     self.driver.find_element(By.ID, "id_password2").send_keys("pass12")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(17)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(19)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "This password is too short. It must contain at least 8 characters."
     self.driver.find_element(By.ID, "id_password1").send_keys("password")
     self.driver.find_element(By.ID, "id_password2").send_keys("password")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(17)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(19)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "This password is too common."
     self.driver.find_element(By.ID, "id_password1").send_keys("87512396")
     self.driver.find_element(By.ID, "id_password2").send_keys("87512396")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(17)").click()
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(19)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "This password is entirely numeric."
 
 '''
@@ -230,6 +250,8 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Register").click()
+    self.driver.find_element(By.ID, "id_first_name").send_keys("User")
+    self.driver.find_element(By.ID, "id_last_name").send_keys("Voting3")
     self.driver.find_element(By.ID, "id_username").send_keys("username1900")
     self.driver.find_element(By.ID, "id_email").send_keys("username1900@gmail.com")
     self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
