@@ -357,6 +357,8 @@ class AuthTestCase(APITestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), 'Finish setting your user account!')
     '''
+    #Test GetUserView
+
     def test_get_user(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')
@@ -384,6 +386,27 @@ class AuthTestCase(APITestCase):
         data = {'username': 'voter1'}
         response = self.client.post('/authentication/login/', data, format='json')
         self.assertEqual(response.status_code, 400)
+
+    #Test GetUserDetailsView
+
+    def test_get_user_details(self):
+        response = self.client.get('/user/1/', format='json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_user_details_invalid_id(self):
+        response = self.client.get('/user/', format='json')
+        self.assertEqual(response.status_code, 404)
+
+    def test_post_user_details(self):
+        response = self.client.post('/user/1/', format='json')
+        self.assertEqual(response.status_code, 302)
+
+    def test_post_user_details_invalid_id(self):
+        response = self.client.post('/user/', format='json')
+        self.assertEqual(response.status_code, 404)
+
+
+
 
     '''
     def test_login(self):
