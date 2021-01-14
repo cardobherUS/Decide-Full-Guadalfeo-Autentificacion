@@ -224,25 +224,45 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(17)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "This password is entirely numeric."
 
-'''
-#Input type number send keys is not supported in the web driver version
-  def test_registerWrongAge(self):
+
+  def test_loginnavegacin(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
-    self.driver.find_element(By.LINK_TEXT, "Register").click()
-    self.driver.find_element(By.ID, "id_username").send_keys("username1900")
-    self.driver.find_element(By.ID, "id_email").send_keys("username1900@gmail.com")
-    self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
-    self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
-    self.driver.find_element(By.ID, "id_dni").send_keys("48978900K")
-    self.driver.find_element(By.ID, "id_edad").send_keys("16")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist").text == "Ensure this value is greater than or equal to 17."
-    self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
-    self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
-    self.driver.find_element(By.ID, "id_edad").send_keys("101")
-    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(17)").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "Ensure this value is less than or equal to 100."
-'''
+    self.driver.find_element(By.LINK_TEXT, "Login").click()
+    self.driver.find_element(By.ID, "id_username").click()
+    self.driver.find_element(By.ID, "id_username").send_keys("voter1")
+    self.driver.find_element(By.ID, "id_password").send_keys("123")
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
+
+  def test_logOut(self):
+    self.driver.get(f'{self.live_server_url}/')
+    self.driver.set_window_size(1296, 696)
+    self.driver.find_element(By.LINK_TEXT, "Login").click()
+    self.driver.find_element(By.ID, "id_username").click()
+    self.driver.find_element(By.ID, "id_username").send_keys("voter1")
+    self.driver.find_element(By.ID, "id_password").send_keys("123")
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
+    self.driver.find_element(By.LINK_TEXT, "Logout").click()
+   
+# '''
+# #Input type number send keys is not supported in the web driver version
+#   def test_registerWrongAge(self):
+#     self.driver.get(f'{self.live_server_url}/')
+#     self.driver.set_window_size(1296, 696)
+#     self.driver.find_element(By.LINK_TEXT, "Register").click()
+#     self.driver.find_element(By.ID, "id_username").send_keys("username1900")
+#     self.driver.find_element(By.ID, "id_email").send_keys("username1900@gmail.com")
+#     self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
+#     self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
+#     self.driver.find_element(By.ID, "id_dni").send_keys("48978900K")
+#     self.driver.find_element(By.ID, "id_edad").send_keys("16")
+#     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(16)").click()
+#     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist").text == "Ensure this value is greater than or equal to 17."
+#     self.driver.find_element(By.ID, "id_password1").send_keys("password1234")
+#     self.driver.find_element(By.ID, "id_password2").send_keys("password1234")
+#     self.driver.find_element(By.ID, "id_edad").send_keys("101")
+#     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(17)").click()
+#     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "Ensure this value is less than or equal to 100."
+# '''
   
   
