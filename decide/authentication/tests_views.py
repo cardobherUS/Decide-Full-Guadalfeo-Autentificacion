@@ -88,6 +88,8 @@ class AuthTestCase(APITestCase):
         self.assertNotIn('votinguser_form', response.context)
 
     def test_register_correct(self):
+        self.assertTrue(User.objects.count() == 3)
+
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
@@ -100,8 +102,12 @@ class AuthTestCase(APITestCase):
         })
 
         self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        self.assertTrue(User.objects.count() == 4)
+        self.assertTrue(User.objects.filter(username="username1999").count() == 1)
 
     def test_register_empty_fields(self):
+        self.assertTrue(User.objects.count() == 3)
+        
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
@@ -128,7 +134,11 @@ class AuthTestCase(APITestCase):
         self.assertEqual(len(votinguser_form.errors),1)
         self.assertEqual(votinguser_form.errors["dni"], ["This field is required."])
 
+        self.assertTrue(User.objects.count() == 3)
+
     def test_register_duplicated_username(self):
+        self.assertTrue(User.objects.count() == 3)
+
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
@@ -152,7 +162,11 @@ class AuthTestCase(APITestCase):
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors),0)
 
+        self.assertTrue(User.objects.count() == 3)
+
     def test_register_duplicated_email(self):
+        self.assertTrue(User.objects.count() == 3)
+
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
@@ -176,7 +190,11 @@ class AuthTestCase(APITestCase):
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors),0)
 
+        self.assertTrue(User.objects.count() == 3)
+
     def test_register_duplicated_dni(self):
+        self.assertTrue(User.objects.count() == 3)
+
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
@@ -200,8 +218,12 @@ class AuthTestCase(APITestCase):
         self.assertEqual(len(votinguser_form.errors),1)
         self.assertEqual(votinguser_form.errors["dni"], ["Voting user with this NIF already exists."])
 
+        self.assertTrue(User.objects.count() == 3)
+
     @parameterized.expand(["username1999","pass12","password","87512396"])
     def test_register_wrong_password_format(self,password):
+        self.assertTrue(User.objects.count() == 3)
+
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
@@ -232,7 +254,11 @@ class AuthTestCase(APITestCase):
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors),0)
 
+        self.assertTrue(User.objects.count() == 3)
+
     def test_register_different_passwords(self):
+        self.assertTrue(User.objects.count() == 3)
+
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
@@ -256,8 +282,12 @@ class AuthTestCase(APITestCase):
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors),0)
 
+        self.assertTrue(User.objects.count() == 3)
+
     @parameterized.expand(["16","101",])
     def test_register_wrong_age(self,edad):
+        self.assertTrue(User.objects.count() == 3)
+
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
@@ -283,6 +313,8 @@ class AuthTestCase(APITestCase):
             self.assertEqual(votinguser_form.errors["edad"], ["Ensure this value is greater than or equal to 17."])
         if int(edad) > 100:
             self.assertEqual(votinguser_form.errors["edad"], ["Ensure this value is less than or equal to 100."])
+
+        self.assertTrue(User.objects.count() == 3)
 
     #API
 
