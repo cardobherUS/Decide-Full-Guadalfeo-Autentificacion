@@ -159,7 +159,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'decide',
         'USER': 'decide',
-        'PASSWORD': 'decide',
+        'PASSWORD': 'decideqe:qqq',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -230,6 +230,6 @@ if os.path.exists("config.jsonnet"):
 
 INSTALLED_APPS = INSTALLED_APPS + MODULES
 
-import django_heroku
+# import django_heroku
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

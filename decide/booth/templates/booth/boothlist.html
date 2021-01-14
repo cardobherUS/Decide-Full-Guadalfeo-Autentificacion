@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+<link type="text/css" rel="stylesheet" href="{% static "index/menu.css" %}" />
+<link type="text/css" rel="stylesheet" href="{% static "index/boothlist.css" %}" />
+
+{% endblock %}
+
+{% block content %}
+
+{% include "index/menu.html" %}
+
+<br/>
+<button onclick="myFunction()" id="myButton" value="Open Curtain">
+    <img id="image" className="languageImg" src="https://images.vexels.com/media/users/3/163965/isolated/lists/5bb2c926d53cc59030477ec3ecb6d26a-england-flag-language-icon.png" style="width: 50px; height: 40px;"/>
+</button>
+<div id="content" class="container-fluid">
+    {% if msg%}
+    <div class="row">
+        
+        {{msg}}
+        
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col ">
+            <div class="question">
+                <div align="center">
+                    <h2 id="title">Votaciones activas </h2>
+                  </div>
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-center flex-wrap ">
+                            {% for v in votings %}  
+                            <div class="option p-3">
+                                <div class="card-input">
+                                    <div class="flip-card">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front">
+                                        <h3>{{v.name}}:</h3>
+                                        <a id="link" href={{v.id}}> <h2 id="button"> Click aquí </h2></a>
+                                        </div>                   
+                                    </div>
+                                    </div>
+                                <br />
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+{% block extrabody %}
+
+<script>
+    function myFunction() {
+
+        var title = document.getElementById("title");
+        var btnClick = document.getElementById("button");
+        var btn = document.getElementById("myButton");
+        var img = document.getElementById("image");
+
+        if (btn.value == "Open Curtain") {
+            btn.value = "Close Curtain";
+            btnClick.innerHTML = "Click here";
+            title.innerHTML = "Active Questions";
+            img.src = "https://images.vexels.com/media/users/3/164598/isolated/preview/ae39cafd26e1b3739a0265ad7e65ebdc-icono-de-idioma-de-la-bandera-de-espa-ntilde-a-by-vexels.png";
+        }
+        else {
+            btn.value = "Open Curtain";
+            btnClick.innerHTML = "Click aquí";
+            title.innerHTML = "Votaciones activas";
+            img.src = "https://images.vexels.com/media/users/3/163965/isolated/lists/5bb2c926d53cc59030477ec3ecb6d26a-england-flag-language-icon.png";
+        }
+
+    }
+</script>
+
+
+</body>
+{% endblock %}
