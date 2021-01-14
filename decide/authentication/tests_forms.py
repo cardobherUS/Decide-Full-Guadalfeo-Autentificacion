@@ -6,7 +6,7 @@ from parameterized import parameterized
 class CustomUserCreationFormTests(TestCase):
 
     def setUp(self):
-        u1 = User(username='voter1', email='voter1@gmail.com')
+        u1 = User(first_name='User',last_name='Voting',username='voter1', email='voter1@gmail.com')
         u1.set_password('123')
         u1.save()
 
@@ -28,22 +28,22 @@ class CustomUserCreationFormTests(TestCase):
 
     @parameterized.expand(["voter2@gmail.com",""," "])
     def test_form_valid(self,email):
-        form = CustomUserCreationForm(data={"first_name":"voter2","last_name":"voter","username":"voter2","email":email,"password1":"password1234","password2":"password1234"})
+        form = CustomUserCreationForm(data={"first_name":"User","last_name":"Voting","username":"voter2","email":email,"password1":"password1234","password2":"password1234"})
         self.assertTrue(form.is_valid())
 
     @parameterized.expand([""," "])
     def test_form_first_name_required(self,first_name):
-        form = CustomUserCreationForm(data={"first_name":first_name,"last_name":"voter","username":"voter2","email": "voter2@gmail.com","password1":"password1234","password2":"password1234"})
+        form = CustomUserCreationForm(data={"first_name":first_name,"last_name":"Voting","username":"voter2","email": "voter2@gmail.com","password1":"password1234","password2":"password1234"})
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors["first_name"], ["This field is required."])
 
     @parameterized.expand([""," "])
     def test_form_last_name_required(self,last_name):
-        form = CustomUserCreationForm(data={"first_name":"voter2","last_name":last_name,"username":"voter2","email": "voter2@gmail.com","password1":"password1234","password2":"password1234"})
+        form = CustomUserCreationForm(data={"first_name":"User","last_name":last_name,"username":"voter2","email": "voter2@gmail.com","password1":"password1234","password2":"password1234"})
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors["last_name"], ["This field is required."])
 
     def test_form_not_valid_duplicated_email(self):
-        form = CustomUserCreationForm(data={"username":"voter2","email": "voter1@gmail.com","password1":"password1234","password2":"password1234"})
+        form = CustomUserCreationForm(data={"first_name":"User","last_name":"Voting","username":"voter2","email": "voter1@gmail.com","password1":"password1234","password2":"password1234"})
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors["email"], ["This email is already in use"])
