@@ -326,6 +326,56 @@ class AuthTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 200)
     
+    #TEST API DE MIMI
+
+    def test_login(self):
+        self.client.logout()
+        LOGIN_URL = '/authentication/decide/login/'
+
+        response = self.client.get(LOGIN_URL)
+        csrftoken = response.cookies['csrftoken']
+        self.assertEqual(response.status_code, 200)
+        
+        data = {'username':'voter1', 'password':'123'}
+        response = self.client.post(LOGIN_URL, data=data, headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            'X-CSRFToken': csrftoken
+        })
+        self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        
+    
+    def test_login_fail_incorrect_credentials(self):
+
+        self.client.logout()
+        LOGIN_URL = '/authentication/decide/login/'
+
+        response = self.client.get(LOGIN_URL)
+        csrftoken = response.cookies['csrftoken']
+        self.assertEqual(response.status_code, 200)
+
+        data = {'username':'voter1', 'password':'543'}
+        response = self.client.post(LOGIN_URL, data=data, headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            'X-CSRFToken': csrftoken,
+        })
+
+        self.assertRedirects(response, '/authentication/decide/login', status_code=302, target_status_code=200, fetch_redirect_response=False)
+
+
+
+
+
+    def test_logout(self):
+        self.client.force_authenticate(self.user1)
+
+        response = self.client.get("/authentication/decide/logout/")
+        # self.assertEqual(response.status_code, 200)
+
+        self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=False)
+
+
+
+
     '''
     def test_get_user_anonymous(self):
         self.client.logout()
