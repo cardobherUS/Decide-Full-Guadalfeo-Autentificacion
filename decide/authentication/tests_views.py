@@ -68,11 +68,6 @@ class AuthTestCase(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index/index.html')
 
-    def test_logout(self):
-        self.client.force_authenticate(self.user1)
-        response = self.client.get('/authentication/decide/logout/')
-        self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=False)
-
     def test_get_register_anonymous(self):
         response = self.client.get('/authentication/decide/register/')
         self.assertEqual(response.status_code, 200)
@@ -330,148 +325,94 @@ class AuthTestCase(APITestCase):
 
         self.assertTrue(User.objects.count() == 3)
 
-    # API
-
-    def test_get_voting_user_anonymous(self):
-        self.client.logout()
-
-        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
-
-        self.assertRedirects(response, '/authentication/decide/login/', status_code=302, target_status_code=200,
-                             fetch_redirect_response=True)
-        messages = list(response.context['messages'])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'You must be logged to access there!')
-
-    def test_get_voting_user_without_token(self):
-        self.client.force_authenticate(self.user3)
-
-        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
-
-        self.assertRedirects(response, '/authentication/decide/login/', status_code=302, target_status_code=200,
-                             fetch_redirect_response=True)
-        messages = list(response.context['messages'])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'User not valid!')
-
-    def test_get_voting_user_incomplete_profile(self):
-        self.client.force_authenticate(self.user1)
-
-        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
-
-        self.assertRedirects(response, '/authentication/', status_code=302, target_status_code=200,
-                             fetch_redirect_response=True)
-        messages = list(response.context['messages'])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'Finish setting your user account!')
-
-    def test_get_voting_user_complete_profile(self):
-        self.client.force_authenticate(self.user2)
-
-        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
-
-        self.assertEqual(response.status_code, 200)
-
-    '''def test_login(self):
+    def test_get_user(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')
         self.assertEqual(response.status_code, 200)
-
         token = response.json()
-        self.assertTrue(token.get('token'))
 
-    def test_login_fail(self):
-        data = {'username': 'voter1', 'password': '321'}
+        response = self.client.post('/authentication/getuser/', token, format='json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_user_anonymous(self):
+        data = {}
         response = self.client.post('/authentication/login/', data, format='json')
         self.assertEqual(response.status_code, 400)
 
-    def test_getuser(self):
+
+    def test_get_user_without_token(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')
         self.assertEqual(response.status_code, 200)
-        token = response.json()
 
-        response = self.client.post('/authentication/getuser/', token, format='json')
-        self.assertEqual(response.status_code, 200)
-
-        user = response.json()
-        self.assertEqual(user['id'], 1)
-        self.assertEqual(user['username'], 'voter1')
-
-    def test_getuser_invented_token(self):
-        token = {'token': 'invented'}
-        response = self.client.post('/authentication/getuser/', token, format='json')
+        response = self.client.post('/authentication/getuser/', format='json')
         self.assertEqual(response.status_code, 404)
 
-    def test_getuser_invalid_token(self):
-        data = {'username': 'voter1', 'password': '123'}
+    def test_get_user_incomplete_profile(self):
+        data = {'username': 'voter1'}
         response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 400)
+
+    #Test GetUserDetailsView
+
+    def test_get_user_details(self):
+        response = self.client.get('/user/1/', format='json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Token.objects.filter(user__username='voter1').count(), 1)
 
-        token = response.json()
-        self.assertTrue(token.get('token'))
-
-        response = self.client.post('/authentication/logout/', token, format='json')
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.post('/authentication/getuser/', token, format='json')
+    def test_get_user_details_invalid_id(self):
+        response = self.client.get('/user/', format='json')
         self.assertEqual(response.status_code, 404)
+
+    def test_post_user_details_invalid_id(self):
+        response = self.client.post('/user/', format='json')
+        self.assertEqual(response.status_code, 404)
+
+    #CompleteVotingUserDetails
+
+    def test_get_complete_voting_user_details(self):
+        self.client.force_authenticate(self.user1)
+        response = self.client.get('/decide/register/complete/', format='json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_complete_voting_user_details(self):
+        response = self.client.post('/decide/register/complete/', format='json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_login(self):
+        self.client.logout()
+        LOGIN_URL = '/authentication/decide/login/'
+
+        response = self.client.get(LOGIN_URL)
+        csrftoken = response.cookies['csrftoken']
+        self.assertEqual(response.status_code, 200)
+
+        data = {'username': 'voter1', 'password': '123'}
+        response = self.client.post(LOGIN_URL, data=data, headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            'X-CSRFToken': csrftoken
+        })
+        self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+
+    def test_login_fail_incorrect_credentials(self):
+
+        self.client.logout()
+        LOGIN_URL = '/authentication/decide/login/'
+
+        response = self.client.get(LOGIN_URL)
+        csrftoken = response.cookies['csrftoken']
+        self.assertEqual(response.status_code, 200)
+
+        data = {'username': 'voter1', 'password': '543'}
+        response = self.client.post(LOGIN_URL, data=data, headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            'X-CSRFToken': csrftoken,
+        })
+
+        self.assertRedirects(response, '/authentication/decide/login', status_code=302, target_status_code=200,
+                             fetch_redirect_response=False)
 
     def test_logout(self):
-        data = {'username': 'voter1', 'password': '123'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(Token.objects.filter(user__username='voter1').count(), 1)
+        self.client.force_authenticate(self.user1)
+        response = self.client.get('/authentication/decide/logout/')
+        self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=False)
 
-        token = response.json()
-        self.assertTrue(token.get('token'))
-
-        response = self.client.post('/authentication/logout/', token, format='json')
-        self.assertEqual(response.status_code, 200)
-
-        self.assertEqual(Token.objects.filter(user__username='voter1').count(), 0)
-
-    def test_register_bad_permissions(self):
-        data = {'username': 'voter1', 'password': '123'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        token.update({'username': 'user1'})
-        response = self.client.post('/authentication/register/', token, format='json')
-        self.assertEqual(response.status_code, 401)
-
-    def test_register_bad_request(self):
-        data = {'username': 'admin', 'password': 'admin'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        token.update({'username': 'user1'})
-        response = self.client.post('/authentication/register/', token, format='json')
-        self.assertEqual(response.status_code, 400)
-
-    def test_register_user_already_exist(self):
-        data = {'username': 'admin', 'password': 'admin'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        token.update(data)
-        response = self.client.post('/authentication/register/', token, format='json')
-        self.assertEqual(response.status_code, 400)
-
-    def test_register(self):
-        data = {'username': 'admin', 'password': 'admin'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        token.update({'username': 'user1', 'password': 'pwd1'})
-        response = self.client.post('/authentication/register/', token, format='json')
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(
-            sorted(list(response.json().keys())),
-            ['token', 'user_pk']
-        )'''
