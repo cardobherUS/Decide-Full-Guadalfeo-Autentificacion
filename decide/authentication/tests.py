@@ -40,6 +40,9 @@ class AuthTestCase(APITestCase):
         u3.save()
         self.user3 = u3
 
+
+ 
+
     def tearDown(self):
         self.client = None
 
@@ -59,7 +62,7 @@ class AuthTestCase(APITestCase):
             "edad": edad
         }
         return data
-
+    
     def test_get_register_anonymous(self):
         self.client.logout()
         response = self.client.get('/authentication/decide/register/')
@@ -322,9 +325,98 @@ class AuthTestCase(APITestCase):
         response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
 
         self.assertEqual(response.status_code, 200)
+    
+    '''
+    def test_get_user_anonymous(self):
+        self.client.logout()
+
+        response = self.client.post('/authentication/getuser/', follow=True)
+
+        self.assertRedirects(response, '/authentication/login/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'You must be logged to access there!')
+
+    def test_get_user_without_token(self):
+        self.client.force_authenticate(self.user3)
+
+        response = self.client.post('/authentication/getuser/', follow=True)
+
+        self.assertRedirects(response, '/authentication/login/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'User not valid!')
+
+    def test_get_voting_user_incomplete_profile(self):
+        self.client.force_authenticate(self.user1)
+
+        response = self.client.post('/authentication/getuser/', follow=True)
+
+        self.assertRedirects(response, '/authentication/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'Finish setting your user account!')
+    '''
+    #Test GetUserView
+
+    def test_get_user(self):
+        data = {'username': 'voter1', 'password': '123'}
+        response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+        token = response.json()
+
+        response = self.client.post('/authentication/getuser/', token, format='json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_user_anonymous(self):
+        data = {}
+        response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 400)
 
 
-    '''def test_login(self):
+    def test_get_user_without_token(self):
+        data = {'username': 'voter1', 'password': '123'}
+        response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post('/authentication/getuser/', format='json')
+        self.assertEqual(response.status_code, 404)
+
+    def test_get_user_incomplete_profile(self):
+        data = {'username': 'voter1'}
+        response = self.client.post('/authentication/login/', data, format='json')
+        self.assertEqual(response.status_code, 400)
+
+    #Test GetUserDetailsView
+
+    def test_get_user_details(self):
+        response = self.client.get('/user/1/', format='json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_user_details_invalid_id(self):
+        response = self.client.get('/user/', format='json')
+        self.assertEqual(response.status_code, 404)
+
+    def test_post_user_details(self):
+        response = self.client.post('/user/1/', format='json')
+        self.assertEqual(response.status_code, 302)
+
+    def test_post_user_details_invalid_id(self):
+        response = self.client.post('/user/', format='json')
+        self.assertEqual(response.status_code, 404)
+
+    #CompleteVotingUserDetails
+
+    def test_get_complete_voting_user_details(self):
+        response = self.client.get('/decide/register/complete/', format='json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_complete_voting_user_details(self):
+        response = self.client.post('/decide/register/complete/', format='json')
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    def test_login(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')
         self.assertEqual(response.status_code, 200)
@@ -336,7 +428,7 @@ class AuthTestCase(APITestCase):
         data = {'username': 'voter1', 'password': '321'}
         response = self.client.post('/authentication/login/', data, format='json')
         self.assertEqual(response.status_code, 400)
-
+    
     def test_getuser(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')
@@ -346,10 +438,7 @@ class AuthTestCase(APITestCase):
         response = self.client.post('/authentication/getuser/', token, format='json')
         self.assertEqual(response.status_code, 200)
 
-        user = response.json()
-        self.assertEqual(user['id'], 1)
-        self.assertEqual(user['username'], 'voter1')
-
+    
     def test_getuser_invented_token(self):
         token = {'token': 'invented'}
         response = self.client.post('/authentication/getuser/', token, format='json')
