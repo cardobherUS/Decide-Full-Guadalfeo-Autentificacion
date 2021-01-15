@@ -26,14 +26,17 @@ install:
   - pip install selenium
 script:
   - cd decide
+  - cp travis_local_settings.py local_settings.py
   - coverage run --branch --source=. ./manage.py test authentication --keepdb --with-xunit
   - coverage xml
   - python-codacy-coverage -r coverage.xml
+  - cd decide
+  - cp travis_settings.py settings.py
 deploy:
   provider: heroku
   app: decide-full-guadalfeo-auth
   strategy: git
   api_key: $HEROKU_AUTH_TOKEN
-  run: "cd decide && python ./manage.py flush && python ./manage.py loaddata db.json"
+  run: "cd decide && python ./manage.py flush --noinput && python ./manage.py loaddata db.json"
   on:
     branch: deploy
