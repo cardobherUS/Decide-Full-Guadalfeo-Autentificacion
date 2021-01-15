@@ -46,7 +46,7 @@ class TestRegister(StaticLiveServerTestCase):
 
     self.base.tearDown()
 
-  def test_get_user_index_view(self):
+  '''def test_get_user_index_view(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(728, 536)
     self.driver.find_element(By.CSS_SELECTOR, "h3").click()
@@ -259,7 +259,7 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.find_element(By.ID, "id_password1").send_keys("87512396")
     self.driver.find_element(By.ID, "id_password2").send_keys("87512396")
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(19)").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "This password is entirely numeric."
+    assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "This password is entirely numeric."'''
 
 '''
 #Input type number send keys is not supported in the web driver version
