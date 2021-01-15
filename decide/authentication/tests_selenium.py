@@ -25,7 +25,7 @@ class TestRegister(StaticLiveServerTestCase):
         self.base.setUp()
 
         options = webdriver.ChromeOptions()
-        options.headless = True
+        options.headless = False
 
         self.driver = webdriver.Chrome(options=options)
 
@@ -47,7 +47,7 @@ class TestRegister(StaticLiveServerTestCase):
 
         self.base.tearDown()
 
-    def test_testgetuserdetails(self):
+    '''def test_testgetuserdetails(self):
         self.driver.get(f'{self.live_server_url}/')
         self.driver.find_element(By.LINK_TEXT, "Login").click()
         time.sleep(1)
@@ -353,7 +353,7 @@ class TestRegister(StaticLiveServerTestCase):
         self.driver.find_element(By.CSS_SELECTOR, ".container").click()
         self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
         value = self.driver.find_element(By.ID, "id_password").get_attribute("value")
-        assert value == ""
+        assert value == ""'''
 
 '''
 #Input type number send keys is not supported in the web driver version
