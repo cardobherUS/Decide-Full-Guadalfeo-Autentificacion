@@ -23,4 +23,4 @@ deploy:
   api_key: $HEROKU_AUTH_TOKEN
   run: "cd decide &&  python manage.py flush --no-input && python ./manage.py loaddata initial_data.json"
   on:
-    branch: develop
+    branch: deploy
