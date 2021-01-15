@@ -34,6 +34,6 @@ deploy:
   app: decide-full-guadalfeo-auth
   strategy: git
   api_key: $HEROKU_AUTH_TOKEN
-  run: "cd decide && python ./manage.py loaddata db.json"
+  run: "cd decide && python ./manage.py flush && python ./manage.py loaddata db.json"
   on:
     branch: deploy
