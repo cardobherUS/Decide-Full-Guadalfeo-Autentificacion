@@ -226,6 +226,11 @@ class TestRegister(StaticLiveServerTestCase):
 
 #test_mimi
 
+  def Test_A_Vista_Login(self):
+    self.driver.get(f'{self.live_server_url}/')
+    self.driver.set_window_size(1296, 696)
+    self.driver.find_element(By.LINK_TEXT, "Login").click()
+
   def test_loginnavegacion(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
@@ -234,6 +239,7 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.find_element(By.ID, "id_username").send_keys("voter1")
     self.driver.find_element(By.ID, "id_password").send_keys("123")
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
+    assert self.driver.find_element(By.LINK_TEXT, "voter1").text == "voter1"
 
   def test_logOut(self):
     self.driver.get(f'{self.live_server_url}/')
@@ -244,6 +250,8 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.find_element(By.ID, "id_password").send_keys("123")
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
     self.driver.find_element(By.LINK_TEXT, "Logout").click()
+  
+
 
   def test_loginIncorrect(self):
     self.driver.get(f'{self.live_server_url}/')
@@ -253,29 +261,39 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.find_element(By.ID, "id_password").click()
     self.driver.find_element(By.ID, "id_password").send_keys("incorrect")
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
+    
   
   def test_loginIncorrectEmptyParameters(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Login").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "LOGIN"
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
+    value = self.driver.find_element(By.ID, "id_username").get_attribute("value")
+    assert value == ""
 
   def test_loginIncorrectEmptyUsernameOnly(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Login").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "LOGIN"
     self.driver.find_element(By.ID, "id_password").click()
     self.driver.find_element(By.ID, "id_password").send_keys("1234")
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
+    value = self.driver.find_element(By.ID, "id_username").get_attribute("value")
+    assert value == ""
 
   def test_loginIncorrectEmptyPassword(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
     self.driver.find_element(By.LINK_TEXT, "Login").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".container > h1").text == "LOGIN"
     self.driver.find_element(By.ID, "id_username").click()
     self.driver.find_element(By.ID, "id_username").send_keys("user")
     self.driver.find_element(By.CSS_SELECTOR, ".container").click()
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
+    value = self.driver.find_element(By.ID, "id_password").get_attribute("value")
+    assert value == ""
   
    
 # '''
