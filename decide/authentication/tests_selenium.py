@@ -45,7 +45,24 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.quit()
 
     self.base.tearDown()
-  
+
+  def test_get_user_index_view(self):
+    self.driver.get(f'{self.live_server_url}/')
+    self.driver.set_window_size(728, 536)
+    self.driver.find_element(By.CSS_SELECTOR, "h3").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, "h3").text == "Votings Visualizer"
+
+  def test_testLogout(self):
+    self.driver.get(f'{self.live_server_url}/')
+    self.driver.set_window_size(1848, 1016)
+    self.driver.find_element(By.LINK_TEXT, "Login").click()
+    self.driver.find_element(By.ID, "id_username").send_keys("voter2")
+    self.driver.find_element(By.ID, "id_password").send_keys("123")
+    self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(4)").click()
+    self.driver.find_element(By.LINK_TEXT, "Logout").click()
+    time.sleep(1)
+    assert self.driver.find_element(By.LINK_TEXT, "Login").text == "Login"
+
   def test_getRegisterAnonymous(self):
     self.driver.get(f'{self.live_server_url}/')
     self.driver.set_window_size(1296, 696)
@@ -266,5 +283,3 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(17)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "Ensure this value is less than or equal to 100."
 '''
-  
-  

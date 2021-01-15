@@ -62,6 +62,17 @@ class AuthTestCase(APITestCase):
         }
         return data
 
+    def test_get_index_view(self):
+        self.client.logout()
+        response = self.client.get('')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'index/index.html')
+
+    def test_logout(self):
+        self.client.force_authenticate(self.user1)
+        response = self.client.get('/authentication/decide/logout/')
+        self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=False)
+
     def test_get_register_anonymous(self):
         response = self.client.get('/authentication/decide/register/')
         self.assertEqual(response.status_code, 200)
