@@ -214,7 +214,7 @@ KEYBITS = 256
 ALLOWED_VERSIONS = ['v1', 'v2']
 DEFAULT_VERSION = 'v1'
 
-BASEURL = "http://localhost:8000"
+BASEURL = "https://decide-full-guadalfeo-auth.herokuapp.com"
 APIS = {
     'authentication': BASEURL,
     'base': BASEURL,
