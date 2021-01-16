@@ -56,9 +56,13 @@ class StoreView(generics.ListAPIView):
         ########################## New encrypt ##########################
         #################################################################
 
-        v, _ = Vote.objects.get_or_create(voting_id=vid, voter_id=uid,
-                                          data=vote)
+        v = Vote.objects.filter(voting_id=vid, voter_id=uid)
 
-        v.save()
+        if len(v) == 0:
+            v1 = Vote.objects.create(voting_id=vid, voter_id=uid, data=vote)
+        else:
+            v1 = v[0]
+            v1.data = vote
+        v1.save()
 
         return  Response({})
