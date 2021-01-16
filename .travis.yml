@@ -31,9 +31,10 @@ script:
   - coverage xml
   - python-codacy-coverage -r coverage.xml
   - cd decide
-  - rm settings.py
   - cp travis_settings.py settings.py
-  - cd .. && ls
+  - cat settings.py
+  - cd ..
+  - ls -a
 deploy:
   provider: heroku
   app: decide-full-guadalfeo-auth
