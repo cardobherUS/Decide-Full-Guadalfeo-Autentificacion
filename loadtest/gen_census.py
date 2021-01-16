@@ -4,7 +4,7 @@ import requests
 
 HOST = "http://localhost:8000"
 USER = "admin"
-PASS = "admin123"
+PASS = "admin"
 VOTING = 1
 
 
