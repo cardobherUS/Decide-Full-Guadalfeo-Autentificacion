@@ -33,6 +33,7 @@ script:
   - cd decide
   - rm settings.py
   - cp travis_settings.py settings.py
+  - cd .. && ls
 deploy:
   provider: heroku
   app: decide-full-guadalfeo-auth
