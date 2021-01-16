@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block extrahead %}
+    <link type="text/css" rel="stylesheet"
+         href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet"
+         href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+    <link type="text/css" rel="stylesheet" href="{% static 'visualizer/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'index/menu.css' %}">
+{% endblock %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{% block content %}
+    <div class="container2">
+        {% include "index/menu.html" %}
+            
+        <div class="body" style="font-family:Arial;">
+        <h1> ¡Contáctanos!</h1>
+
+        <br>
+        
+        <p> La plataforma de decida ha sido desarrollada por la compañia wadobo, y modificada por el equipo de decide-Full-Guadalfeo. <br>
+            Decide-Full-Guadalfeo tiene una serie de modulos de trabajo, como booth, voting, visualización... <br>
+            Si desea ponerse en contacto con los miembros del modulo de visualización, los contactos por correo electronico están a continuación. </p>
+
+    <div class=table>
+    <table class=contact>
+        <tr>
+            <th>
+                Miembros
+            </th>
+            <th>
+                Emails
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Fernando Sola 
+            </td>
+            <td class=correo>
+            <button id=correoEz><a href=""><img onclick="window.open('mailto:fersolesp@alum.us.es?subject=Decide!&body=Querido Fernando: Soy _______ y le escribo este correo con motivo:');" 
+                src="https://images.vexels.com/media/users/3/130187/isolated/preview/5e8d2205ecc8cde3235581fc5ecfa430-icono-de-esquema-de-correo-electr--nico-by-vexels.png" height="20" width="20"></a></button><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Reyes Blasco 
+            </td>
+            <td class=correo>
+            <button id=correoB><a href=""><img onclick="window.open('mailto:reyblacua@alum.us.es?subject=Decide!&body=Querida Reyes: Soy _______ y le escribo este correo con motivo:');" 
+                src="https://images.vexels.com/media/users/3/130187/isolated/preview/5e8d2205ecc8cde3235581fc5ecfa430-icono-de-esquema-de-correo-electr--nico-by-vexels.png" height="20" width="20"></a></button><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                José Salado   
+            </td> 
+            <td class=correo>
+            <button id=correoMt><a href=""><img onclick="window.open('mailto:jossalase@alum.us.es?subject=Decide!&body=Querid José: Soy _______ y le escribo este correo con motivo:');" 
+                src="https://images.vexels.com/media/users/3/130187/isolated/preview/5e8d2205ecc8cde3235581fc5ecfa430-icono-de-esquema-de-correo-electr--nico-by-vexels.png" height="20" width="20"></a></button><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                José María Cornac   
+            </td>
+            <td class=correo>
+            <button id=correoMar><a href=""><img onclick="window.open('mailto:joscorfis@alum.us.es?subject=Decide!&body=Querido José María: Soy _______ y le escribo este correo con motivo:');" 
+                src="https://images.vexels.com/media/users/3/130187/isolated/preview/5e8d2205ecc8cde3235581fc5ecfa430-icono-de-esquema-de-correo-electr--nico-by-vexels.png" height="20" width="20"></a></button></br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pablo Cardenal
+            </td>
+            <td class=correo>
+            <button id=correoAle><a href=""><img onclick="window.open('mailto:pabcargam@alum.us.es?subject=Decide!&body=Querido Pablo: Soy _______ y le escribo este correo con motivo:');"
+                src="https://images.vexels.com/media/users/3/130187/isolated/preview/5e8d2205ecc8cde3235581fc5ecfa430-icono-de-esquema-de-correo-electr--nico-by-vexels.png" height="20" width="20"></a></button><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Vanessa Pradas
+            </td>
+            <td class=correo>
+            <button id=correoAle><a href=""><img onclick="window.open('mailto:vanprafer@alum.us.es?subject=Decide!&body=Querida Vanesa: Soy _______ y le escribo este correo con motivo:');"
+                src="https://images.vexels.com/media/users/3/130187/isolated/preview/5e8d2205ecc8cde3235581fc5ecfa430-icono-de-esquema-de-correo-electr--nico-by-vexels.png" height="20" width="20"></a></button><br>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <p> En caso de tener alguna duda, sugerencia o encontrar algun fallo no dude en contactar con nosotros. <br>
+     Intentaremos arreglarlo de la manera más eficaz posible, ¡Muchas gracias! </p>
+    </div>
+</div>
+
+<script>
+function enviarCorreo () {
+    var thread = GmailApp.getInboxThreads(0,1)[0]; // get first thread in inbox
+    var message = thread.getMessages()[0]; // get first message
+    Logger.log(message.getFrom());
+}
+
+</script>
+
+{% endblock %}
