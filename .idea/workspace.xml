@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6ed11340-7724-4950-9ca2-c022bbb5a2a5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Workspace.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/backends.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/fixtures/initial_data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/forms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/loadtest/gen_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/loadtest/locustfile.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/loadtest/users.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/static/index/error.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/static/index/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/static/index/menu.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/static/votingusers/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/static/votingusers/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/static/votingusers/registro.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/templates/index/error.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/templates/index/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/templates/index/menu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/templates/votingusers/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/templates/votingusers/profile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/templates/votingusers/registro.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/tests_forms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/tests_selenium.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/tests_views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/authentication/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/backends.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/fixtures/initial_data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/mods.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/perms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/templates/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/base/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/fixtures/db.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/booth/react/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/booth/react/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/booth/react/Voting/Modals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/booth/react/Voting/Voting.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/booth/react/Voting/Voting.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/booth/react/Voting/istockphoto-1209341625-1024x1024.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/crypto/bigint.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/crypto/elgamal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/crypto/jsbn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/crypto/jsbn2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/crypto/sjcl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/static/index/boothlist.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/templates/booth/booth.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/templates/booth/boothlist.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/booth/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/census/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/config.jsonnet.example" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/account_inactive.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email/base_message.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email/email_confirmation_message.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email/email_confirmation_signup_message.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email/email_confirmation_signup_subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email/email_confirmation_subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email/password_reset_key_message.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email/password_reset_key_subject.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/email_confirm.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/logout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/cannot_delete_primary_email.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/email_confirmation_sent.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/email_confirmed.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/email_deleted.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/logged_in.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/logged_out.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/password_changed.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/password_set.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/primary_email_set.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/messages/unverified_primary_email.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/password_change.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/password_reset.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/password_reset_done.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/password_reset_from_key.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/password_reset_from_key_done.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/password_set.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/signup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/signup_closed.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/snippets/already_logged_in.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/verification_sent.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/account/verified_email_required.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/openid/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/openid/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/authentication_error.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/connections.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/login_cancelled.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/messages/account_connected.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/messages/account_connected_other.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/messages/account_connected_updated.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/messages/account_disconnected.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/signup.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/snippets/login_extra.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/socialaccount/snippets/provider_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/templates/tests/test_403_csrf.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/travis_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/decide/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/gateway/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/gateway/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/gateway/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/gateway/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/gateway/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/gateway/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/gateway/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/gateway/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/local_settings.example.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/manage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/mixcrypt.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/mixnet/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/postproc/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/postproc/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/postproc/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/postproc/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/postproc/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/postproc/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/postproc/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/postproc/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/secondauth.example.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/store/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/PK" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/SK" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/js/crypto/bigint.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/js/crypto/elgamal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/js/crypto/jsbn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/js/crypto/jsbn2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/js/crypto/sjcl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/js/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/test-decrypt.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/test-encrypt.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/test-scripts/test-genkey.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/travis_local_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/API_vGeneral.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/API_vPrimaria.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/static/visualizer/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/templates/visualizer/aboutUs.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/templates/visualizer/botResponse.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/templates/visualizer/contactUs.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/templates/visualizer/menu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/templates/visualizer/prueba.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/templates/visualizer/visualizer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/visualizer/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/filters.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/management/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/management/commands/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/management/commands/testvoting.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decide/voting/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/SPEC.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/issues.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/subsistemas.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/vmnv-31.10.11.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/Dockerfile-nginx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-nginx.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loadtest/gen_census.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loadtest/locustfile.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loadtest/voters.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/admin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/booth.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/booth_login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/booth_success_vote.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/booth_unauth.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/census.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/command_votings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/list_votings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/new_census.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/new_question.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/new_user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/new_voting.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/user_detail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/users.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/visualizer_results.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/visualizer_status1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/voting.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runtime.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/Vagrantfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/database.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/django.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/files.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/files/decide.service" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/files/nginx.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/files/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/packages.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/playbook.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/python.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/services.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagrant/user.yml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1n9HjL6lXiEdZScLxNnsNmDmRI4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ed11340-7724-4950-9ca2-c022bbb5a2a5" name="Default Changelist" comment="" />
+      <created>1610795519593</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610795519593</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
