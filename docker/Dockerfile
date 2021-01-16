@@ -10,7 +10,7 @@ RUN pip install ipython
 
 WORKDIR /app
 
-RUN git clone https://github.com/Decide-Full-Guadalfeo/Decide-Full-Guadalfeo-Votaciones.git .
+RUN git clone https://github.com/Decide-Full-Guadalfeo/Decide-Full-Guadalfeo-Autentificacion.git -b deploy_with_all_tests .
 RUN pip install -r requirements.txt
 
 WORKDIR /app/decide
