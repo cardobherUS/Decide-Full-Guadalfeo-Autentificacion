@@ -32,8 +32,7 @@ script:
   - cd ..
   - coverage run --branch --source=. ./manage.py test authentication --keepdb
   - coverage xml
-  - cat coverage.xml
-  - python-codacy-coverage -r coverage.xml
+  # - python-codacy-coverage -r coverage.xml
 deploy:
   provider: heroku
   app: decide-full-guadalfeo-auth
