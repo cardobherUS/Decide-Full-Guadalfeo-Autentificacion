@@ -6,8 +6,6 @@ let firstRender = true;
 let votingType = null;
 let alumList = null;
 
-
-
 const Voting = ({ utils }) => {
   /*#################################################################*/
   /*####################### UTILITY FUNCTIONS #######################*/
