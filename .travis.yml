@@ -30,9 +30,9 @@ script:
   - cd decide
   - cp travis_settings.py settings.py
   - cd ..
-  - coverage run --branch --source=. ./manage.py test voting --keepdb
-  - coverage xml
-  - python-codacy-coverage -r coverage.xml
+  # - coverage run --branch --source=. ./manage.py test authentication --keepdb
+  # - coverage xml
+  # - python-codacy-coverage -r coverage.xml
 deploy:
   provider: heroku
   app: decide-full-guadalfeo-auth
