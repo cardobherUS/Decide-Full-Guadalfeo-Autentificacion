@@ -16,11 +16,7 @@ class AuthTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient()
         mods.mock_query(self.client)
-<<<<<<< HEAD
-        u1 = User(username='voter1')
-=======
         u1 = User(first_name='User', last_name='Voting', username='voter1')
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         u1.set_password('123')
         u1.save()
         self.user1 = u1
@@ -28,11 +24,7 @@ class AuthTestCase(APITestCase):
         t1.save()
         self.token1 = t1
 
-<<<<<<< HEAD
-        u2 = User(username='voter2', email='voter2@gmail.com')
-=======
         u2 = User(first_name='User', last_name='Voting2', username='voter2', email='voter2@gmail.com')
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         u2.set_password('123')
         u2.save()
         self.user2 = u2
@@ -43,11 +35,7 @@ class AuthTestCase(APITestCase):
         t2.save()
         self.token2 = t2
 
-<<<<<<< HEAD
-        u3 = User(username='voter3')
-=======
         u3 = User(first_name='User', last_name='Voting3', username='voter3')
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         u3.set_password('123')
         u3.save()
         self.user3 = u3
@@ -55,12 +43,6 @@ class AuthTestCase(APITestCase):
     def tearDown(self):
         self.client = None
 
-<<<<<<< HEAD
-    def generate_data(self,username="username1999",email="username1999@gmail.com",password1="password1234",password2="password1234",
-            dni="11112222A",sexo="Woman",titulo="Software",curso="First",candidatura="",edad="18"):
-
-        data = {
-=======
     def generate_data(self, first_name="User", last_name="Voting", username="username1999",
                       email="username1999@gmail.com", password1="password1234", password2="password1234",
                       dni="11112222A", sexo="Woman", titulo="Software", curso="First", candidatura="", edad="18"):
@@ -68,7 +50,6 @@ class AuthTestCase(APITestCase):
         data = {
             "first_name": first_name,
             "last_name": last_name,
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
             "username": username,
             "email": email,
             "password1": password1,
@@ -82,17 +63,12 @@ class AuthTestCase(APITestCase):
         }
         return data
 
-<<<<<<< HEAD
-    def test_get_register_anonymous(self):
-        self.client.logout()
-=======
     def test_get_index_view(self):
         response = self.client.get('')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index/index.html')
 
     def test_get_register_anonymous(self):
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'votingusers/registro.html')
@@ -107,12 +83,8 @@ class AuthTestCase(APITestCase):
         self.client.force_authenticate(self.user1)
 
         response = self.client.get('/authentication/decide/register/')
-<<<<<<< HEAD
-        self.assertRedirects(response, '/authentication/decide/register/complete/', status_code=302, target_status_code=200, fetch_redirect_response=True)
-=======
         self.assertRedirects(response, '/authentication/decide/register/complete/', status_code=302,
                              target_status_code=200, fetch_redirect_response=True)
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
 
     def test_get_register_logged_user_complete_profile(self):
         self.client.force_authenticate(self.user2)
@@ -126,10 +98,6 @@ class AuthTestCase(APITestCase):
     def test_register_correct(self):
         self.assertTrue(User.objects.count() == 3)
 
-<<<<<<< HEAD
-        self.client.logout()
-=======
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
@@ -144,27 +112,16 @@ class AuthTestCase(APITestCase):
         self.assertTrue(User.objects.count() == 4)
         self.assertTrue(User.objects.filter(username="username1999").count() == 1)
 
-<<<<<<< HEAD
-    def test_register_empty_fields(self):
-        self.assertTrue(User.objects.count() == 3)
-        
-        self.client.logout()
-=======
     @parameterized.expand(["", " "])
     def test_register_empty_fields(self, blank):
         self.assertTrue(User.objects.count() == 3)
 
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
 
-<<<<<<< HEAD
-        data = self.generate_data(username="",password1="",password2="",dni="")
-=======
         data = self.generate_data(first_name=blank, last_name=blank, username=blank, password1=blank, password2=blank,
                                   dni=blank)
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.post('/authentication/decide/register/', data=data, headers={
             "Content-Type": "application/x-www-form-urlencoded",
             'X-CSRFToken': csrftoken
@@ -175,16 +132,6 @@ class AuthTestCase(APITestCase):
 
         user_form = response.context['user_form']
         self.assertIsInstance(user_form, CustomUserCreationForm)
-<<<<<<< HEAD
-        self.assertEqual(len(user_form.errors),3)
-        self.assertEqual(user_form.errors["username"], ["This field is required."])
-        self.assertEqual(user_form.errors["password1"], ["This field is required."])
-        self.assertEqual(user_form.errors["password2"], ["This field is required."])
-        
-        votinguser_form = response.context['votinguser_form']
-        self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
-        self.assertEqual(len(votinguser_form.errors),1)
-=======
         # self.assertEqual(len(user_form.errors),5)
         self.assertEqual(user_form.errors["first_name"], ["This field is required."])
         self.assertEqual(user_form.errors["last_name"], ["This field is required."])
@@ -199,7 +146,6 @@ class AuthTestCase(APITestCase):
         votinguser_form = response.context['votinguser_form']
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors), 1)
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         self.assertEqual(votinguser_form.errors["dni"], ["This field is required."])
 
         self.assertTrue(User.objects.count() == 3)
@@ -207,10 +153,6 @@ class AuthTestCase(APITestCase):
     def test_register_duplicated_username(self):
         self.assertTrue(User.objects.count() == 3)
 
-<<<<<<< HEAD
-        self.client.logout()
-=======
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
@@ -226,31 +168,18 @@ class AuthTestCase(APITestCase):
 
         user_form = response.context['user_form']
         self.assertIsInstance(user_form, CustomUserCreationForm)
-<<<<<<< HEAD
-        self.assertEqual(len(user_form.errors),1)
-        self.assertEqual(user_form.errors["username"], ["A user with that username already exists."])
-        
-        votinguser_form = response.context['votinguser_form']
-        self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
-        self.assertEqual(len(votinguser_form.errors),0)
-=======
         self.assertEqual(len(user_form.errors), 1)
         self.assertEqual(user_form.errors["username"], ["A user with that username already exists."])
 
         votinguser_form = response.context['votinguser_form']
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors), 0)
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
 
         self.assertTrue(User.objects.count() == 3)
 
     def test_register_duplicated_email(self):
         self.assertTrue(User.objects.count() == 3)
 
-<<<<<<< HEAD
-        self.client.logout()
-=======
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
@@ -266,31 +195,18 @@ class AuthTestCase(APITestCase):
 
         user_form = response.context['user_form']
         self.assertIsInstance(user_form, CustomUserCreationForm)
-<<<<<<< HEAD
-        self.assertEqual(len(user_form.errors),1)
-        self.assertEqual(user_form.errors["email"], ["This email is already in use"])
-        
-        votinguser_form = response.context['votinguser_form']
-        self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
-        self.assertEqual(len(votinguser_form.errors),0)
-=======
         self.assertEqual(len(user_form.errors), 1)
         self.assertEqual(user_form.errors["email"], ["This email is already in use"])
 
         votinguser_form = response.context['votinguser_form']
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors), 0)
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
 
         self.assertTrue(User.objects.count() == 3)
 
     def test_register_duplicated_dni(self):
         self.assertTrue(User.objects.count() == 3)
 
-<<<<<<< HEAD
-        self.client.logout()
-=======
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
@@ -306,35 +222,19 @@ class AuthTestCase(APITestCase):
 
         user_form = response.context['user_form']
         self.assertIsInstance(user_form, CustomUserCreationForm)
-<<<<<<< HEAD
-        self.assertEqual(len(user_form.errors),0)
-        
-        votinguser_form = response.context['votinguser_form']
-        self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
-        self.assertEqual(len(votinguser_form.errors),1)
-=======
         self.assertEqual(len(user_form.errors), 0)
 
         votinguser_form = response.context['votinguser_form']
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors), 1)
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         self.assertEqual(votinguser_form.errors["dni"], ["Voting user with this NIF already exists."])
 
         self.assertTrue(User.objects.count() == 3)
 
-<<<<<<< HEAD
-    @parameterized.expand(["username1999","pass12","password","87512396"])
-    def test_register_wrong_password_format(self,password):
-        self.assertTrue(User.objects.count() == 3)
-
-        self.client.logout()
-=======
     @parameterized.expand(["username1999", "pass12", "password", "87512396"])
     def test_register_wrong_password_format(self, password):
         self.assertTrue(User.objects.count() == 3)
 
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
@@ -350,45 +250,26 @@ class AuthTestCase(APITestCase):
 
         user_form = response.context['user_form']
         self.assertIsInstance(user_form, CustomUserCreationForm)
-<<<<<<< HEAD
-        self.assertEqual(len(user_form.errors),1)
-        if password == "username1999":
-            self.assertEqual(user_form.errors["password2"], ["The password is too similar to the username."])
-        if password == "pass12":
-            self.assertEqual(user_form.errors["password2"], ["This password is too short. It must contain at least 8 characters."])
-=======
         self.assertEqual(len(user_form.errors), 1)
         if password == "username1999":
             self.assertEqual(user_form.errors["password2"], ["The password is too similar to the username."])
         if password == "pass12":
             self.assertEqual(user_form.errors["password2"],
                              ["This password is too short. It must contain at least 8 characters."])
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         if password == "password":
             self.assertEqual(user_form.errors["password2"], ["This password is too common."])
         if password == "12345678":
             self.assertEqual(user_form.errors["password2"], ["This password is entirely numeric."])
-<<<<<<< HEAD
-        
-        votinguser_form = response.context['votinguser_form']
-        self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
-        self.assertEqual(len(votinguser_form.errors),0)
-=======
 
         votinguser_form = response.context['votinguser_form']
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors), 0)
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
 
         self.assertTrue(User.objects.count() == 3)
 
     def test_register_different_passwords(self):
         self.assertTrue(User.objects.count() == 3)
 
-<<<<<<< HEAD
-        self.client.logout()
-=======
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
@@ -404,22 +285,6 @@ class AuthTestCase(APITestCase):
 
         user_form = response.context['user_form']
         self.assertIsInstance(user_form, CustomUserCreationForm)
-<<<<<<< HEAD
-        self.assertEqual(len(user_form.errors),1)
-        self.assertEqual(user_form.errors["password2"], ["The two password fields didn't match."])
-        
-        votinguser_form = response.context['votinguser_form']
-        self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
-        self.assertEqual(len(votinguser_form.errors),0)
-
-        self.assertTrue(User.objects.count() == 3)
-
-    @parameterized.expand(["16","101",])
-    def test_register_wrong_age(self,edad):
-        self.assertTrue(User.objects.count() == 3)
-
-        self.client.logout()
-=======
         self.assertEqual(len(user_form.errors), 1)
         self.assertEqual(user_form.errors["password2"], ["The two password fields didn't match."])
 
@@ -433,7 +298,6 @@ class AuthTestCase(APITestCase):
     def test_register_wrong_age(self, edad):
         self.assertTrue(User.objects.count() == 3)
 
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         response = self.client.get('/authentication/decide/register/')
         csrftoken = response.cookies['csrftoken']
         self.assertEqual(response.status_code, 200)
@@ -449,19 +313,11 @@ class AuthTestCase(APITestCase):
 
         user_form = response.context['user_form']
         self.assertIsInstance(user_form, CustomUserCreationForm)
-<<<<<<< HEAD
-        self.assertEqual(len(user_form.errors),0)
-        
-        votinguser_form = response.context['votinguser_form']
-        self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
-        self.assertEqual(len(votinguser_form.errors),1)
-=======
         self.assertEqual(len(user_form.errors), 0)
 
         votinguser_form = response.context['votinguser_form']
         self.assertIsInstance(votinguser_form, RegisterVotingUserForm)
         self.assertEqual(len(votinguser_form.errors), 1)
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
         if int(edad) < 17:
             self.assertEqual(votinguser_form.errors["edad"], ["Ensure this value is greater than or equal to 17."])
         if int(edad) > 100:
@@ -469,151 +325,6 @@ class AuthTestCase(APITestCase):
 
         self.assertTrue(User.objects.count() == 3)
 
-<<<<<<< HEAD
-    #API
-
-    def test_get_voting_user_anonymous(self):
-        self.client.logout()
-
-        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
-
-        self.assertRedirects(response, '/authentication/decide/login/', status_code=302, target_status_code=200, fetch_redirect_response=True)
-        messages = list(response.context['messages'])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'You must be logged to access there!')
-
-    def test_get_voting_user_without_token(self):
-        self.client.force_authenticate(self.user3)
-
-        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
-
-        self.assertRedirects(response, '/authentication/decide/login/', status_code=302, target_status_code=200, fetch_redirect_response=True)
-        messages = list(response.context['messages'])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'User not valid!')
-
-    def test_get_voting_user_incomplete_profile(self):
-        self.client.force_authenticate(self.user1)
-
-        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
-
-        self.assertRedirects(response, '/authentication/', status_code=302, target_status_code=200, fetch_redirect_response=True)
-        messages = list(response.context['messages'])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'Finish setting your user account!')
-
-    def test_get_voting_user_complete_profile(self):
-        self.client.force_authenticate(self.user2)
-
-        response = self.client.post('/authentication/decide/getVotingUser/', follow=True)
-
-        self.assertEqual(response.status_code, 200)
-
-
-    '''def test_login(self):
-        data = {'username': 'voter1', 'password': '123'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-
-        token = response.json()
-        self.assertTrue(token.get('token'))
-
-    def test_login_fail(self):
-        data = {'username': 'voter1', 'password': '321'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 400)
-
-    def test_getuser(self):
-        data = {'username': 'voter1', 'password': '123'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        response = self.client.post('/authentication/getuser/', token, format='json')
-        self.assertEqual(response.status_code, 200)
-
-        user = response.json()
-        self.assertEqual(user['id'], 1)
-        self.assertEqual(user['username'], 'voter1')
-
-    def test_getuser_invented_token(self):
-        token = {'token': 'invented'}
-        response = self.client.post('/authentication/getuser/', token, format='json')
-        self.assertEqual(response.status_code, 404)
-
-    def test_getuser_invalid_token(self):
-        data = {'username': 'voter1', 'password': '123'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(Token.objects.filter(user__username='voter1').count(), 1)
-
-        token = response.json()
-        self.assertTrue(token.get('token'))
-
-        response = self.client.post('/authentication/logout/', token, format='json')
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.post('/authentication/getuser/', token, format='json')
-        self.assertEqual(response.status_code, 404)
-
-    def test_logout(self):
-        data = {'username': 'voter1', 'password': '123'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(Token.objects.filter(user__username='voter1').count(), 1)
-
-        token = response.json()
-        self.assertTrue(token.get('token'))
-
-        response = self.client.post('/authentication/logout/', token, format='json')
-        self.assertEqual(response.status_code, 200)
-
-        self.assertEqual(Token.objects.filter(user__username='voter1').count(), 0)
-
-    def test_register_bad_permissions(self):
-        data = {'username': 'voter1', 'password': '123'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        token.update({'username': 'user1'})
-        response = self.client.post('/authentication/register/', token, format='json')
-        self.assertEqual(response.status_code, 401)
-
-    def test_register_bad_request(self):
-        data = {'username': 'admin', 'password': 'admin'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        token.update({'username': 'user1'})
-        response = self.client.post('/authentication/register/', token, format='json')
-        self.assertEqual(response.status_code, 400)
-
-    def test_register_user_already_exist(self):
-        data = {'username': 'admin', 'password': 'admin'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        token.update(data)
-        response = self.client.post('/authentication/register/', token, format='json')
-        self.assertEqual(response.status_code, 400)
-
-    def test_register(self):
-        data = {'username': 'admin', 'password': 'admin'}
-        response = self.client.post('/authentication/login/', data, format='json')
-        self.assertEqual(response.status_code, 200)
-        token = response.json()
-
-        token.update({'username': 'user1', 'password': 'pwd1'})
-        response = self.client.post('/authentication/register/', token, format='json')
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(
-            sorted(list(response.json().keys())),
-            ['token', 'user_pk']
-        )'''
-=======
     def test_get_user(self):
         data = {'username': 'voter1', 'password': '123'}
         response = self.client.post('/authentication/login/', data, format='json')
@@ -705,4 +416,3 @@ class AuthTestCase(APITestCase):
         response = self.client.get('/authentication/decide/logout/')
         self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=False)
 
->>>>>>> 2ac796927c516534268cdd927b77caba9f27e3e8
