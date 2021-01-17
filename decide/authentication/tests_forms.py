@@ -4,6 +4,10 @@ from .models import VotingUser
 from voting.models import Candidatura
 from django.contrib.auth.models import User
 from parameterized import parameterized
+from voting.models import Candidatura
+from authentication.models import VotingUser
+from .forms import CustomUserCreationForm, RegisterVotingUserForm
+
 
 class CustomUserCreationFormTests(TestCase):
 
@@ -23,6 +27,12 @@ class CustomUserCreationFormTests(TestCase):
         u1 = User(first_name='User',last_name='Voting',username='voter1', email='voter1@gmail.com')
         u1.set_password('123')
         u1.save()
+
+        vu1 = VotingUser(user=u1, dni='45454545T', sexo='Man', titulo='Software', curso='First', edad=18)
+        vu1.save()
+        c = Candidatura(nombre='Generales')
+        c.save()
+        self.candidatura = c
 
     def test_fields_and_labels(self):
         form = CustomUserCreationForm()
