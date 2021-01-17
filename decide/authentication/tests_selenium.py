@@ -76,7 +76,7 @@ class TestRegister(StaticLiveServerTestCase):
         self.driver.find_element(By.ID, "id_dni").send_keys("12345678P")
         self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(9)").click()
         time.sleep(1)
-        assert self.driver.find_element(By.CSS_SELECTOR, "h3:nth-child(3)").text == "Do you want to vote?"
+        assert self.driver.find_element(By.CSS_SELECTOR, "h3:nth-child(5)").text == "Do you want to vote?"
 
     def test_get_user_index_view(self):
         self.driver.get(f'{self.live_server_url}/')
