@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet"
          href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
     <link type="text/css" rel="stylesheet" href="{% static 'visualizer/style.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'index/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'visualizer/menu.css' %}">
     
     
 {% endblock %}
@@ -244,12 +244,12 @@
                                 </tr>
                                 <tr>
                                     <th>Media de edad</th>
-                                    <td>[[ voting.postproc.estadisticas.media_edad._0 ]] %</td>
-                                    <td>[[ voting.postproc.estadisticas.media_edad._1 ]] %</td>
-                                    <td>[[ voting.postproc.estadisticas.media_edad._2 ]] %</td>
-                                    <td>[[ voting.postproc.estadisticas.media_edad._3 ]] %</td>
-                                    <td>[[ voting.postproc.estadisticas.media_edad._4 ]] %</td>
-                                    <td>[[ voting.postproc.estadisticas.media_edad._5 ]] %</td>
+                                    <td>[[ voting.postproc.estadisticas.media_edad._0 ]]</td>
+                                    <td>[[ voting.postproc.estadisticas.media_edad._1 ]]</td>
+                                    <td>[[ voting.postproc.estadisticas.media_edad._2 ]]</td>
+                                    <td>[[ voting.postproc.estadisticas.media_edad._3 ]]</td>
+                                    <td>[[ voting.postproc.estadisticas.media_edad._4 ]]</td>
+                                    <td>[[ voting.postproc.estadisticas.media_edad._5 ]]</td>
                                 </tr>
 
                             </tbody>
@@ -575,7 +575,7 @@
             if (Math.min.apply(17,mediasEdad) != 0){
                 minEdad=Math.min.apply(17,mediasEdad)-1;
             }else{
-                minEdad=0;
+                minEdad=15;
             }
 
             todoCeroVotos= true
