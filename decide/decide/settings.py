@@ -74,7 +74,7 @@ AUTHENTICATION_BACKENDS = [
     #BackEnd Github
     'social_core.backends.github.GithubOAuth2',
     #BackEnd Linkedin
-    'social_core.backends.linkedin.LinkedinOAuth2' ,
+    'social_core.backends.linkedin.LinkedinOAuth2',
 ]
 
 #Login with social networks
