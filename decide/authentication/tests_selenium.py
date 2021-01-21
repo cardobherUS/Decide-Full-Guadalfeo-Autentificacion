@@ -17,7 +17,6 @@ from .models import VotingUser
 
 from base.tests import BaseTestCase
 
-
 class TestRegister(StaticLiveServerTestCase):
     def setUp(self):
         # Load base test functionality for decide
@@ -377,3 +376,72 @@ class TestRegister(StaticLiveServerTestCase):
     self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(17)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "Ensure this value is less than or equal to 100."
 '''
+
+class TestRegisterWithEmail(StaticLiveServerTestCase):
+    def setUp(self):
+        # Load base test functionality for decide
+        self.base = BaseTestCase()
+        self.base.setUp()
+
+        options = webdriver.ChromeOptions()
+        options.headless = True
+
+        self.driver = webdriver.Chrome(options=options)
+
+        super().setUp()
+
+        u1 = User(first_name='User', last_name='Voting1', username='voter1', email='voter1@gmail.com')
+        u1.set_password('123')
+        u1.save()
+        vu1 = VotingUser(user=u1, dni='45454545T', sexo='Man', titulo='Software', curso='First', edad=18)
+        vu1.save()
+
+    def tearDown(self):
+        super().tearDown()
+        self.driver.quit()
+
+        self.base.tearDown()
+
+    def test_getRegisterWithEmailAnonymous(self):
+        self.driver.get(f'{self.live_server_url}/')
+        self.driver.set_window_size(1296, 696)
+        self.driver.find_element(By.LINK_TEXT, "Login").click()
+        self.driver.find_element(By.LINK_TEXT, "Login with E-mail").click()
+        assert self.driver.find_element(By.CSS_SELECTOR, "h3").text == "Quick Login with E-mail"
+        assert self.driver.find_element(By.CSS_SELECTOR, "label").text == "E-mail:"
+        value = self.driver.find_element(By.CSS_SELECTOR, "input:nth-child(3)").get_attribute("value")
+        assert value == "Send!"
+
+    def test_getRegisterWithEmailLogged(self):
+        self.driver.get(f'{self.live_server_url}/')
+        self.driver.set_window_size(1280, 680)
+        self.driver.find_element(By.LINK_TEXT, "Login").click()
+        self.driver.find_element(By.ID, "id_username").send_keys("voter1")
+        self.driver.find_element(By.ID, "id_password").send_keys("123")
+        self.driver.find_element(By.ID, "id_password").send_keys(Keys.ENTER)
+        assert self.driver.find_element(By.LINK_TEXT, "voter1").text == "voter1"
+        self.driver.get(f'{self.live_server_url}/authentication/decide/send/')
+        assert self.driver.find_element(By.CSS_SELECTOR, "h2").text == "Error:"
+        assert self.driver.find_element(By.ID, "error").text == "You are already logged in!"
+        assert self.driver.find_element(By.LINK_TEXT, "Return to main web page!").text == "Return to main web page!"
+
+    def test_registerWithCorrectEmail(self):
+        self.driver.get(f'{self.live_server_url}/')
+        self.driver.set_window_size(1280, 680)
+        self.driver.find_element(By.LINK_TEXT, "Login").click()
+        self.driver.find_element(By.LINK_TEXT, "Login with E-mail").click()
+        self.driver.find_element(By.ID, "id_email").click()
+        self.driver.find_element(By.ID, "id_email").send_keys("aguadalfeotests@gmail.com")
+        self.driver.find_element(By.ID, "id_email").send_keys(Keys.ENTER)
+        assert self.driver.find_element(By.CSS_SELECTOR, "h3:nth-child(1)").text == "Votings Visualizer"
+        assert self.driver.find_element(By.CSS_SELECTOR, "h3:nth-child(3)").text == "Candidatures"
+
+    def test_registerWithDuplicatedEmail(self):
+        self.driver.get(f'{self.live_server_url}/')
+        self.driver.set_window_size(1280, 680)
+        self.driver.find_element(By.LINK_TEXT, "Login").click()
+        self.driver.find_element(By.LINK_TEXT, "Login with E-mail").click()
+        self.driver.find_element(By.ID, "id_email").click()
+        self.driver.find_element(By.ID, "id_email").send_keys("voter1@gmail.com")
+        self.driver.find_element(By.ID, "id_email").send_keys(Keys.ENTER)
+        assert self.driver.find_element(By.CSS_SELECTOR, ".errorlist > li").text == "This email is already in use"

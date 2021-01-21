@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .forms import CustomUserCreationForm, RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserForm
+from .forms import CustomUserCreationForm, RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserForm, EmailForm
 from .models import VotingUser
 from voting.models import Candidatura
 from django.contrib.auth.models import User
@@ -331,3 +331,36 @@ class ProfileVotingUserFormTests(TestCase):
         self.assertEqual(len(form.errors),1)
         self.assertEqual(form.errors["edad"], ["Ensure this value is less than or equal to 100."])
         self.assertFalse(form.is_valid())
+
+class EmailFormTests(TestCase):
+
+    def setUp(self):
+        u1 = User(first_name='User',last_name='Voting',username='voter1', email='voter1@gmail.com')
+        u1.set_password('123')
+        u1.save()
+        vu1 = VotingUser(user=u1, dni='45454545T', sexo='Man', titulo='Software', curso='First', edad=18)
+        vu1.save()
+        self.votingUser1 = vu1
+
+    def test_fields_and_labels(self):
+        form = EmailForm()
+        self.assertTrue(len(form.fields) == 1)
+        self.assertTrue(form.fields['email'])
+        self.assertTrue(form.fields['email'].label == 'E-mail')
+
+    def test_form_valid(self):
+        data={
+            "email":'voter2@gmail.com',
+            }
+        form = EmailForm(data=data)
+        self.assertTrue(form.is_valid())
+
+    def test_form_not_valid_duplicated_email(self):
+        data={
+            "email":'voter1@gmail.com',
+            }
+        form = EmailForm(data=data)
+        self.assertFalse(form.is_valid())
+        self.assertEqual(len(form.errors),1)
+        self.assertEqual(form.errors["email"], ["This email is already in use"])
+    

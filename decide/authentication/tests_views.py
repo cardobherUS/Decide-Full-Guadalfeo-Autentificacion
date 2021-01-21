@@ -5,7 +5,7 @@ from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from .models import VotingUser
 from rest_framework.authtoken.models import Token
-from .forms import RegisterVotingUserForm, CustomUserCreationForm
+from .forms import RegisterVotingUserForm, CustomUserCreationForm, EmailForm
 
 from base import mods
 from parameterized import parameterized
@@ -416,3 +416,62 @@ class AuthTestCase(APITestCase):
         response = self.client.get('/authentication/decide/logout/')
         self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=False)
 
+    #EMAIL REGISTER
+
+    def test_get_email_register_anonymous(self):
+        response = self.client.get('/authentication/decide/send/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'votingusers/send_email.html')
+
+        email_form = response.context['form']
+        self.assertIsInstance(email_form, EmailForm)
+        self.assertContains(response, 'csrfmiddlewaretoken')
+
+    def test_get_email_register_logged(self):
+        self.client.force_authenticate(self.user2)
+
+        response = self.client.get('/authentication/decide/send/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'index/error.html')
+        error = response.context['error']
+        self.assertEquals(error, 'You are already logged in!')
+
+    def test_register_with_mail_valid(self):
+        self.assertTrue(User.objects.count() == 3)
+
+        response = self.client.get('/authentication/decide/send/')
+        csrftoken = response.cookies['csrftoken']
+        self.assertEqual(response.status_code, 200)
+
+        data = {'email': 'aguadalfeotests@gmail.com'}
+        response = self.client.post('/authentication/decide/send/', data=data, headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            'X-CSRFToken': csrftoken
+        })
+
+        self.assertRedirects(response, '/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        self.assertTrue(User.objects.count() == 4)
+        self.assertTrue(User.objects.filter(email="aguadalfeotests@gmail.com").count() == 1)
+
+    def test_register_with_email_not_valid_duplicated_email(self):
+        self.assertTrue(User.objects.count() == 3)
+
+        response = self.client.get('/authentication/decide/send/')
+        csrftoken = response.cookies['csrftoken']
+        self.assertEqual(response.status_code, 200)
+
+        data = {'email': 'voter2@gmail.com'}
+        response = self.client.post('/authentication/decide/send/', data=data, headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            'X-CSRFToken': csrftoken
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'votingusers/send_email.html')
+
+        email_form = response.context['form']
+        self.assertIsInstance(email_form, EmailForm)
+        self.assertEqual(len(email_form.errors), 1)
+        self.assertEqual(email_form.errors["email"], ["This email is already in use"])
+
+        self.assertTrue(User.objects.count() == 3)
