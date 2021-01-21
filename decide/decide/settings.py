@@ -11,17 +11,32 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import dotenv
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^##ydkswfu0+=ofw0l#$kv^8n)0$i(qd&d&ol#p9!b$8*5%j1+'
+
+# EMAIL SETTINGS
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,12 +99,12 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 #Github
-SOCIAL_AUTH_GITHUB_KEY = 'f1cdcd7ded3ef6491888'
-SOCIAL_AUTH_GITHUB_SECRET = '38e5b6bbacec1f56ff2e3849742a67d7ab54b52e'
+SOCIAL_AUTH_GITHUB_KEY = os.environ['SOCIAL_AUTH_GITHUB_KEY']
+SOCIAL_AUTH_GITHUB_SECRET = os.environ['SOCIAL_AUTH_GITHUB_SECRET']
 
 #Linkedin
-SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '77upgo9aosfx0q'
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'vdG8AvMdkRsuLv8q'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = os.environ['SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET']
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

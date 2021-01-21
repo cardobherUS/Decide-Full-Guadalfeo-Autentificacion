@@ -16,3 +16,4 @@ django-heroku
 gunicorn
 selenium
 python-telegram-bot
+python-dotenv==0.15.0

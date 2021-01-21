@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load socialaccount %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'votingusers/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'index/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'votingusers/send_email.css' %}">
+    <title>DECIDE FULL GUADALFEO</title>
+</head>
+<body>
+    {% include "index/menu.html" %}
+
+    <div class="container">
+        <h3>Quick Login with E-mail</h3>
+
+        <form action='' method="post" style="text-align: center; margin: 20px 0px">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="Submit" value="Send!">
+        </form>
+    </div>
+
+</body>
+</html>
