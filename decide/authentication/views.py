@@ -17,16 +17,20 @@ from .serializers import UserSerializer
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserForm, CustomUserCreationForm
+from .forms import RegisterVotingUserForm, ProfileUserForm, ProfileVotingUserForm, CustomUserCreationForm, EmailForm
 from django.contrib import messages
 from .models import VotingUser
 from voting.models import Voting, Candidatura
+from django.utils.crypto import get_random_string
+from django.core.mail import send_mail
+
 
 class GetUserView(APIView):
     def post(self, request):
         key = request.data.get('token', '')
         tk = get_object_or_404(Token, key=key)
         return Response(UserSerializer(tk.user, many=False).data)
+
 
 class LogoutView(APIView):
     def get(self,request):
@@ -307,6 +311,60 @@ class GetCandidaturesView(APIView):
         return render(request, "votingusers/candidatures.html", {
             "candidatura": candidatura
         })
+
+
+# MEJORA DEFENSA
+
+class GetMejoraView(APIView):
+    def get(self, request):
+
+        if not request.user.id:
+            form = EmailForm()
+            return render(request, "votingusers/send_email.html", {
+                "form": form
+            })
+        else:
+            return render(request, "index/error.html", {'error': 'You are already logged in!'})
+
+    def post(self, request):
+
+        if not request.user.id:
+
+            form = EmailForm(request.POST)
+
+            if form.is_valid():
+                email = form.cleaned_data['email']
+
+                # Create random
+                username= get_random_string(length=10)
+                password = get_random_string(length=25)
+
+                try:
+                    user = User.objects.create_user(
+                        username=username,
+                        first_name="Name",
+                        last_name="Last Name",
+                        email=email,
+                        password=password
+                    )
+                except IntegrityError:
+                    return render(request, "index/error.html", {
+                        'error': 'Email or Username already exist. Try again later'})
+
+                send_mail(
+                    'User Created',
+                    'Do not share this messages with anyone: \nUsername: ' + user.username + '\nPassword: ' + password,
+                    'auguadalfeo@gmail.com',
+                    [user.email],
+                    fail_silently=False
+                )
+
+                return redirect('/')
+            else:
+                return render(request, "votingusers/send_email.html", {'form': form})
+        else:
+            return render(request, "index/error.html", {'error': 'You are already logged in!'})
+
 
 # API
 

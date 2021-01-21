@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Form, EmailField
 from .models import VotingUser
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -51,3 +51,13 @@ class ProfileVotingUserForm(ModelForm):
         model = VotingUser
         fields = ['titulo', 'curso', 'edad']
         exclude = ['user']
+
+
+class EmailForm(Form):
+    email = EmailField(label="E-mail")
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("This email is already in use")
+        return email
